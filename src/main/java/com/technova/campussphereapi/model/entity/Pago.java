@@ -22,14 +22,17 @@ public class Pago {
     private LocalDateTime fecha;
 
     @ManyToOne
-    @JoinColumn(name = "metodo_pago_id")
+    @JoinColumn(name = "metodo_pago_id", referencedColumnName = "id",
+    foreignKey = @ForeignKey(name = "fk_pago_metodos_de_pago"))
     private MetodoDePago metodoDePago;
 
     @ManyToOne
-    @JoinColumn(name = "estudiante_id")
+    @JoinColumn(name = "estudiante_id", referencedColumnName = "id",
+    foreignKey = @ForeignKey(name = "fk_pago_estudiantes"))
     private Estudiante estudiante;
 
     @ManyToOne
-    @JoinColumn(name = "evento_id")
+    @JoinColumn(name = "evento_id", referencedColumnName = "id",
+    foreignKey = @ForeignKey(name = "fk_pago_eventos"))
     private Evento evento;
 }

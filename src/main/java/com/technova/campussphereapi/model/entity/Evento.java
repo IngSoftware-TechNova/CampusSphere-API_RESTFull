@@ -21,15 +21,18 @@ public class Evento {
     private String descripcion;
 
     @ManyToOne
-    @JoinColumn(name = "categoria_id")
+    @JoinColumn(name = "categoria_id", referencedColumnName = "id",
+    foreignKey = @ForeignKey(name = "fk_evento_categorias"))
     private Categoria categoria;
 
     @ManyToOne
-    @JoinColumn(name = "ubicacion_id")
+    @JoinColumn(name = "ubicacion_id", referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "fk_evento_ubicaciones"))
     private Ubicacion ubicacion;
 
     @ManyToOne
-    @JoinColumn(name = "tarifario_id")
+    @JoinColumn(name = "tarifario_id", referencedColumnName = "id",
+    foreignKey = @ForeignKey(name = "fk_evento_tarifarios"))
     private Tarifario tarifario;
 
 }

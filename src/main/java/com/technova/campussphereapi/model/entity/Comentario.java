@@ -21,11 +21,13 @@ public class Comentario {
     private LocalDateTime fechaComentar;
 
     @ManyToOne
-    @JoinColumn(name = "evento_id")
+    @JoinColumn(name = "evento_id", referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "fk_comentario_eventos"))
     private Evento evento;
 
     @ManyToOne
-    @JoinColumn(name = "estudiante_id")
+    @JoinColumn(name = "estudiante_id", referencedColumnName = "id",
+    foreignKey = @ForeignKey(name = "fk_comentario-estudiantes"))
     private Estudiante estudiante;
 
 }

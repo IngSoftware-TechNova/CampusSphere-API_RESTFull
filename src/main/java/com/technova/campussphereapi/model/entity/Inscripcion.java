@@ -14,14 +14,16 @@ public class Inscripcion {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @ManyToOne
-    @JoinColumn(name = "estudiante_id")
+    @JoinColumn(name = "estudiante_id", referencedColumnName = "id",
+    foreignKey = @ForeignKey(name = "fk_inscripcion_estudiantes"))
     private Estudiante estudiantes;
 
     @Column(name = "fecha_inscripcion")
     private LocalDateTime fechaInscripcion;
 
     @ManyToOne
-    @JoinColumn(name = "evento_id")
+    @JoinColumn(name = "evento_id", referencedColumnName = "id",
+    foreignKey = @ForeignKey(name = "fk_inscripcion_eventos"))
     private Evento evento;
 
 }

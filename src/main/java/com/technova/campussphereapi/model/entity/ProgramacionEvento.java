@@ -10,7 +10,8 @@ import java.time.LocalDateTime;
 @Table(name = "programaciones_eventos")
 public class ProgramacionEvento {
     @ManyToOne
-    @JoinColumn(name = "evento_id")
+    @JoinColumn(name = "evento_id", referencedColumnName = "id",
+    foreignKey = @ForeignKey(name = "fk_programacion_evento_eventos"))
     private Evento evento;
 
     @Column(name = "fecha_inicio")
@@ -20,6 +21,7 @@ public class ProgramacionEvento {
     private LocalDateTime fechaFin;
 
     @ManyToOne
-    @JoinColumn(name = "horario_id")
+    @JoinColumn(name = "horario_id", referencedColumnName = "id",
+    foreignKey = @ForeignKey(name = "fk_programacion_de_evento_horarios"))
     private Horario horario;
 }
