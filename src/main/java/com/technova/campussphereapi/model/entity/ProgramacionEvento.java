@@ -7,12 +7,16 @@ import lombok.Data;
 import java.time.LocalDateTime;
 
 @Data
+@Entity
 @Table(name = "programaciones_eventos")
+@IdClass(ProgramacionEventoPK.class)
 public class ProgramacionEvento {
-    @ManyToOne
-    @JoinColumn(name = "evento_id", referencedColumnName = "id",
-    foreignKey = @ForeignKey(name = "fk_programacion_evento_eventos"))
+
+    @Id
     private Evento evento;
+
+    @Id
+    private Horario horario;
 
     @Column(name = "fecha_inicio")
     private LocalDateTime fechaInicio;
@@ -20,8 +24,5 @@ public class ProgramacionEvento {
     @Column(name = "fecha_fin")
     private LocalDateTime fechaFin;
 
-    @ManyToOne
-    @JoinColumn(name = "horario_id", referencedColumnName = "id",
-    foreignKey = @ForeignKey(name = "fk_programacion_de_evento_horarios"))
-    private Horario horario;
+
 }
