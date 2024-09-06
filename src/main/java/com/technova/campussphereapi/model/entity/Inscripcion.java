@@ -1,5 +1,6 @@
 package com.technova.campussphereapi.model.entity;
 
+import com.technova.campussphereapi.model.enums.InscripcionStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -21,9 +22,13 @@ public class Inscripcion {
     @Column(name = "fecha_inscripcion")
     private LocalDateTime fechaInscripcion;
 
+    @Enumerated(EnumType.STRING)
+    private InscripcionStatus inscripcionStatus;
+
     @ManyToOne
     @JoinColumn(name = "evento_id", referencedColumnName = "id",
     foreignKey = @ForeignKey(name = "fk_inscripcion_eventos"))
     private Evento evento;
+
 
 }
