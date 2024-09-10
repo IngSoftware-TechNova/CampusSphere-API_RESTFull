@@ -7,6 +7,7 @@ import lombok.Data;
 @Entity
 @Table(name = "eventos")
 public class Evento {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;

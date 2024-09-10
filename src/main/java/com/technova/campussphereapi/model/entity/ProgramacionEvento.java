@@ -13,10 +13,10 @@ import java.time.LocalDateTime;
 public class ProgramacionEvento {
 
     @Id
-    private Evento evento;
+    private Integer evento;
 
     @Id
-    private Horario horario;
+    private Integer horario;
 
     @Column(name = "fecha_inicio")
     private LocalDateTime fechaInicio;
