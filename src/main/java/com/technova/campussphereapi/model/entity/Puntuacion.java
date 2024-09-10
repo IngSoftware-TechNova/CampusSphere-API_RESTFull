@@ -23,4 +23,7 @@ public class Puntuacion {
     @JoinColumn(name = "estudiante_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_puntuacion-estudiantes"))
     private Estudiante estudiante;
+
+    @JoinColumn(name = "puntuacion")
+    private Integer puntuacion;
 }
