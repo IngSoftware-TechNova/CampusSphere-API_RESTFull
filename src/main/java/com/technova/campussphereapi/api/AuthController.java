@@ -34,4 +34,10 @@ public class AuthController {
         return new ResponseEntity<Estudiante>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Estudiante> getEstudiante(@PathVariable("id") Integer id){
+        Estudiante estudiante = estudianteService.findById(id);
+        return new ResponseEntity<Estudiante>(estudiante, HttpStatus.OK);
+    }
+
 }
