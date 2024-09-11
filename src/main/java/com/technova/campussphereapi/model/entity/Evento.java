@@ -22,7 +22,7 @@ public class Evento {
 
     @ManyToOne
     @JoinColumn(name = "categoria_id", referencedColumnName = "id",
-    foreignKey = @ForeignKey(name = "fk_evento_categorias"))
+            foreignKey = @ForeignKey(name = "fk_evento_categorias"))
     private Categoria categoria;
 
     @ManyToOne
@@ -32,7 +32,7 @@ public class Evento {
 
     @ManyToOne
     @JoinColumn(name = "tarifario_id", referencedColumnName = "id",
-    foreignKey = @ForeignKey(name = "fk_evento_tarifarios"))
+            foreignKey = @ForeignKey(name = "fk_evento_tarifarios"))
     private Tarifario tarifario;
 
 }

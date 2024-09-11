@@ -18,7 +18,4 @@ public interface ProgramacionEventoRepository extends JpaRepository<Programacion
                                   @Param("fechaInicio") LocalDateTime fechaInicio,
                                   @Param("fechaFin") LocalDateTime fechaFin);
 
-    @Modifying
-    @Query(name= "update eventos e set enabled = false where event_id = :event_id", nativeQuery = true)
-    void deactivateUsersNotLoggedInSince(@Param("event_id") int event_id);
 }
