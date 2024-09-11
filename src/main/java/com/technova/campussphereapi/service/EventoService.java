@@ -1,4 +1,7 @@
 package com.technova.campussphereapi.service;
 
-public class EventoService {
+import com.technova.campussphereapi.model.entity.Evento;
+
+public interface EventoService {
+    Evento findById(Integer id);
 }

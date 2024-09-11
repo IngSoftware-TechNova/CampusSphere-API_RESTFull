@@ -11,13 +11,10 @@ import java.util.List;
 @Entity
 @Table(name = "Inscripciones")
 public class Inscripcion {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @ManyToOne
-    @JoinColumn(name = "estudiante_id", referencedColumnName = "id",
-    foreignKey = @ForeignKey(name = "fk_inscripcion_estudiantes"))
-    private Estudiante estudiantes;
 
     @Column(name = "fecha_inscripcion")
     private LocalDateTime fechaInscripcion;
@@ -30,5 +27,8 @@ public class Inscripcion {
     foreignKey = @ForeignKey(name = "fk_inscripcion_eventos"))
     private Evento evento;
 
-
+    @ManyToOne
+    @JoinColumn(name = "estudiante_id", referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "fk_inscripcion_estudiantes"))
+    private Estudiante estudiantes;
 }
