@@ -29,7 +29,7 @@ public class HorarioController {
 
     @GetMapping("/page")
     public ResponseEntity<Page<Horario>> paginateHorarios(
-            @PageableDefault(size = 5, sort = "hora")Pageable pageable) {
+            @PageableDefault(size = 5, sort = "hora_inicio")Pageable pageable) {
         Page<Horario> horarios = horarioService.paginate(pageable);
         return new ResponseEntity<Page<Horario>>(horarios, HttpStatus.OK);
     }

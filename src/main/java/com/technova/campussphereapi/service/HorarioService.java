@@ -10,7 +10,7 @@ public interface HorarioService {
     List<Horario> getAll();
     Page<Horario> paginate(Pageable pageable);
     Horario findById(Integer id);
-    Horario create(Horario Horario);
+    Horario create(Horario horario);
     Horario update(Integer id, Horario updateHorario);
     void delete(Integer id);
 }
