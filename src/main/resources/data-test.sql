@@ -1,5 +1,5 @@
-INSERT INTO categorias (nombre) VALUES ('Tecnología');
-INSERT INTO categorias (nombre) VALUES ('Ciencia');
-INSERT INTO categorias (nombre) VALUES ('Arte');
-INSERT INTO categorias (nombre) VALUES ('Literatura');
-INSERT INTO categorias (nombre) VALUES ('Deportes');
+INSERT INTO categories (name) VALUES ('Tecnología');
+INSERT INTO categories (name) VALUES ('Ciencia');
+INSERT INTO categories (name) VALUES ('Arte');
+INSERT INTO categories (name) VALUES ('Literatura');
+INSERT INTO categories (name) VALUES ('Deportes');
