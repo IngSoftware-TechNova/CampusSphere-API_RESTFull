@@ -5,20 +5,20 @@ import lombok.Data;
 
 @Data
 @Entity
-@Table(name = "ubicaciones")
-public class Ubicacion {
+@Table(name = "locations")
+public class Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "direccion", columnDefinition = "TEXT")
+    @Column(name = "location", columnDefinition = "TEXT")
     private String direccion;
 
-    @Column(name = "ciudad", columnDefinition = "Text")
+    @Column(name = "city", columnDefinition = "Text")
     private String ciudad;
 
-    @Column(name = "pais", columnDefinition = "TEXT")
+    @Column(name = "country", columnDefinition = "TEXT")
     private String pais;
 
 
