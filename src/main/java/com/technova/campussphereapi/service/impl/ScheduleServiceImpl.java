@@ -2,8 +2,8 @@ package com.technova.campussphereapi.service.impl;
 
 import com.technova.campussphereapi.model.entity.Horario;
 
-import com.technova.campussphereapi.repository.HorarioRepository;
-import com.technova.campussphereapi.service.HorarioService;
+import com.technova.campussphereapi.repository.ScheduleRepository;
+import com.technova.campussphereapi.service.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -15,25 +15,25 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 
-public class HorarioServiceImpl implements HorarioService {
-    private final HorarioRepository horarioRepository;
+public class ScheduleServiceImpl implements ScheduleService {
+    private final ScheduleRepository scheduleRepository;
 
     @Transactional(readOnly = true)
     @Override
-    public List<Horario> getAll() {
-        return horarioRepository.findAll();
+    public List<Horario> findAll() {
+        return scheduleRepository.findAll();
     }
 
     @Transactional(readOnly = true)
     @Override
     public Page<Horario> paginate(Pageable pageable) {
-        return horarioRepository.findAll(pageable);
+        return scheduleRepository.findAll(pageable);
     }
 
     @Transactional(readOnly = true)
     @Override
     public Horario findById(Integer id) {
-        return horarioRepository.findById(id).
+        return scheduleRepository.findById(id).
                 orElseThrow(()-> new RuntimeException("Horario no encontrado"));
     }
 
@@ -41,7 +41,7 @@ public class HorarioServiceImpl implements HorarioService {
     @Override
     public Horario create(Horario horario) {
 
-        return horarioRepository.save(horario);
+        return scheduleRepository.save(horario);
     }
 
     @Transactional
@@ -50,13 +50,13 @@ public class HorarioServiceImpl implements HorarioService {
         Horario horarioDeDB = findById(id);
         horarioDeDB.setHoraInicio(updateHorario.getHoraInicio());
         horarioDeDB.setHoraFin(updateHorario.getHoraFin());
-        return horarioRepository.save(horarioDeDB);
+        return scheduleRepository.save(horarioDeDB);
     }
 
     @Transactional
     @Override
     public void delete(Integer id) {
         Horario horario = findById(id);
-        horarioRepository.delete(horario);
+        scheduleRepository.delete(horario);
     }
 }

@@ -1,5 +1,5 @@
 -- Añadir datos a la tabla horarios
-INSERT INTO horarios (id, hora_inicio, hora_fin) VALUES
+INSERT INTO schedules (id, start_hour, end_hour) VALUES
                                                      (1, '2024-09-09 08:00:00.000000', '2024-09-09 12:00:00.000000'),
                                                      (2, '2024-09-09 14:00:00.000000', '2024-09-09 18:00:00.000000'),
                                                      (3, '2024-09-10 08:00:00.000000', '2024-09-10 12:00:00.000000');

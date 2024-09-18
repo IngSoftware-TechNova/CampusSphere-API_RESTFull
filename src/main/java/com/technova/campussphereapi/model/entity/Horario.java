@@ -7,13 +7,13 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@Table(name = "horarios")
+@Table(name = "schedules")
 public class Horario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column(name = "hora_inicio", nullable = false)
+    @Column(name = "start_hour", nullable = false)
     private LocalDateTime horaInicio;
-    @Column(name = "hora_fin", nullable = false)
+    @Column(name = "end_hour", nullable = false)
     private LocalDateTime horaFin;
 }
