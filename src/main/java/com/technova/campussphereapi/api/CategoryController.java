@@ -27,7 +27,7 @@ public class CategoryController {
 
     @GetMapping("/page")
     public ResponseEntity<Page<Category>> paginate(
-            @PageableDefault(size = 5, sort ="nombre") Pageable pageable) {
+            @PageableDefault(size = 5, sort ="name") Pageable pageable) {
         Page<Category> categorias = categoryService.paginate(pageable);
         return new ResponseEntity<>(categorias, HttpStatus.OK);
     }
