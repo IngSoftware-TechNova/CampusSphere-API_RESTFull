@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Data
 @Entity
 @Table(name = "comentarios")
-public class Comentario {
+public class Comentario { //estos son los atributo de la clase comentario que tiene|
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
