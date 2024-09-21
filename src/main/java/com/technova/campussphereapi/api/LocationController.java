@@ -1,7 +1,9 @@
 package com.technova.campussphereapi.api;
 
+import com.technova.campussphereapi.dto.LocationDTO;
 import com.technova.campussphereapi.model.entity.Location;
 import com.technova.campussphereapi.service.LocationService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -18,39 +20,39 @@ import java.util.List;
 public class LocationController {
     private final LocationService locationService;
     @GetMapping
-    public ResponseEntity<List<Location>> list() {
-        List<Location> location = locationService.findAll();
-        return new ResponseEntity<List<Location>>(location, HttpStatus.OK);
+    public ResponseEntity<List<LocationDTO>> list() {
+        List<LocationDTO> locations = locationService.findAll();
+        return new ResponseEntity<>(locations, HttpStatus.OK);
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<Location>> paginate(
-            @PageableDefault(size = 5, sort ="name") Pageable pageable) {
-        Page<Location> ubicacion = locationService.paginate(pageable);
-        return new ResponseEntity<>(ubicacion, HttpStatus.OK);
+    public ResponseEntity<Page<LocationDTO>> paginate(
+            @PageableDefault(size = 5, sort ="location") Pageable pageable) {
+        Page<LocationDTO> locations = locationService.paginate(pageable);
+        return new ResponseEntity<>(locations, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Location> search(@PathVariable("id") Integer id) {
-        Location location = locationService.findById(id);
-        return new ResponseEntity<Location>(location, HttpStatus.OK);
+    public ResponseEntity<LocationDTO> search(@PathVariable("id") Integer id) {
+        LocationDTO location = locationService.findById(id);
+        return new ResponseEntity<>(location, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Location> create(@RequestBody Location location) {
-        Location newLocation = locationService.create(location);
-        return new ResponseEntity<Location>(newLocation, HttpStatus.CREATED);
+    public ResponseEntity<LocationDTO> create (@Valid @RequestBody LocationDTO locationDTO) {
+        LocationDTO newLocation = locationService.create(locationDTO);
+        return new ResponseEntity<>(newLocation, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Location> update(@PathVariable("id") Integer id, @RequestBody Location location) {
-        Location updatedCategoria = locationService.update(id, location);
-        return new ResponseEntity<Location>( updatedCategoria,HttpStatus.NO_CONTENT);
+    public ResponseEntity<LocationDTO> update(@PathVariable("id") Integer id,@Valid @RequestBody LocationDTO locationDTO) {
+        LocationDTO updatedCategoria = locationService.update(id, locationDTO);
+        return new ResponseEntity<>( updatedCategoria,HttpStatus.NO_CONTENT);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Location> delete(@PathVariable("id") Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         locationService.delete(id);
-        return new ResponseEntity<Location>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }

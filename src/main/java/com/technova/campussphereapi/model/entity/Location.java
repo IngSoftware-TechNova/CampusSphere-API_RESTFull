@@ -6,20 +6,18 @@ import lombok.Data;
 @Data
 @Entity
 @Table(name = "locations")
-public class Location {
+public class  Location {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "location", columnDefinition = "TEXT")
-    private String direccion;
+    private String location;
 
     @Column(name = "city", columnDefinition = "Text")
-    private String ciudad;
+    private String city;
 
     @Column(name = "country", columnDefinition = "TEXT")
-    private String pais;
-
-
+    private String country;
 }
