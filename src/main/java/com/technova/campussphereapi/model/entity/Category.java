@@ -12,6 +12,6 @@ public class Category {
     private Integer id;
 
     @Column(name = "name", columnDefinition = "TEXT")
-    private String nombre;
+    private String name;
 
 }

@@ -1,16 +1,16 @@
 package com.technova.campussphereapi.service;
 
-import com.technova.campussphereapi.model.entity.Category;
+import com.technova.campussphereapi.dto.CategoryDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface CategoryService {
-    List<Category> findAll();
-    Page<Category> paginate(Pageable pageable);
-    Category findById(Integer id);
-    Category create(Category category);
-    Category update(Integer id, Category updatedCategory);
+    List<CategoryDTO> findAll();
+    Page<CategoryDTO> paginate(Pageable pageable);
+    CategoryDTO findById(Integer id);
+    CategoryDTO create(CategoryDTO categoryDTO);
+    CategoryDTO update(Integer id, CategoryDTO updatedCategoryDTO);
     void delete(Integer id);
 }

@@ -1,8 +1,10 @@
 package com.technova.campussphereapi.api;
 
 
+import com.technova.campussphereapi.dto.CategoryDTO;
 import com.technova.campussphereapi.model.entity.Category;
 import com.technova.campussphereapi.service.CategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,39 +22,39 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping
-    public ResponseEntity<List<Category>> list() {
-        List<Category> categories = categoryService.findAll();
-        return new ResponseEntity<List<Category>>(categories,HttpStatus.OK);
+    public ResponseEntity<List<CategoryDTO>> list() {
+        List<CategoryDTO> categories = categoryService.findAll();
+        return new ResponseEntity<>(categories,HttpStatus.OK);
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<Category>> paginate(
+    public ResponseEntity<Page<CategoryDTO>> paginate(
             @PageableDefault(size = 5, sort ="name") Pageable pageable) {
-        Page<Category> categorias = categoryService.paginate(pageable);
-        return new ResponseEntity<>(categorias, HttpStatus.OK);
+        Page<CategoryDTO> categories = categoryService.paginate(pageable);
+        return new ResponseEntity<>(categories, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> search(@PathVariable("id") Integer id) {
-        Category category = categoryService.findById(id);
-        return new ResponseEntity<Category>(category, HttpStatus.OK);
+    public ResponseEntity<CategoryDTO> search( @PathVariable("id") Integer id) {
+        CategoryDTO category = categoryService.findById(id);
+        return new ResponseEntity<>(category, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Category> create(@RequestBody Category category) {
-        Category newCategory = categoryService.create(category);
-        return new ResponseEntity<Category>(newCategory, HttpStatus.CREATED);
+    public ResponseEntity<CategoryDTO> create(@Valid @RequestBody CategoryDTO categoryDTO) {
+        CategoryDTO newCategory = categoryService.create(categoryDTO);
+        return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Category> update(@PathVariable("id") Integer id, @RequestBody Category category) {
-        Category updatedCategory = categoryService.update(id, category);
-        return new ResponseEntity<Category>(updatedCategory,HttpStatus.NO_CONTENT);
+    public ResponseEntity<CategoryDTO> update(@PathVariable("id") Integer id,@Valid @RequestBody CategoryDTO categoryDTO) {
+        CategoryDTO updatedCategory = categoryService.update(id, categoryDTO);
+        return new ResponseEntity<>(updatedCategory,HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Category> delete(@PathVariable("id") Integer id) {
+    public ResponseEntity<Void> delete(@PathVariable("id") Integer id) {
         categoryService.delete(id);
-        return new ResponseEntity<Category>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
