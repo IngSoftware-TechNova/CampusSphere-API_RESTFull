@@ -20,15 +20,15 @@ public class ComentarioController {
 
     @GetMapping
     public ResponseEntity<List<Comentario>> getAllComentario(){
-        List<Comentario> comentarios = comentarioService.getAll();
-        return new ResponseEntity<>(comentarios, HttpStatus.OK);
+        List<Comentario> comentario = comentarioService.getAll();
+        return new ResponseEntity<>(comentario, HttpStatus.OK);
     }
 
     @GetMapping("/page")
     public ResponseEntity<Page<Comentario>> paginateComentarios(
             @PageableDefault(size = 5, sort = "name") Pageable pageable){
-        Page<Comentario> comentarios = comentarioService.paginate(pageable);
-        return new ResponseEntity<Page<Comentario>>(comentarios, HttpStatus.OK);
+        Page<Comentario> comentario = comentarioService.paginate(pageable);
+        return new ResponseEntity<Page<Comentario>>(comentario, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
