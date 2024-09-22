@@ -21,7 +21,7 @@ public class PuntuacionServiceImpl implements PuntuacionService {
 
     @Override
     public List<Puntuacion> getAll() {
-        return PuntuacionRepository.findAll();
+        return puntuacionRepository.findAll();
     }
 
     @Override
