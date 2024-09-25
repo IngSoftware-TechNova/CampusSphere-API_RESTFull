@@ -1,11 +1,11 @@
 package com.technova.campussphereapi.exception;
 
 public class ResourceNotFoundException extends RuntimeException{
-    public ResourceNotFoundException(){
+    public ResourceNotFoundException() {
         super();
     }
 
-    public ResourceNotFoundException(String message){
+    public ResourceNotFoundException(String message) {
         super(message);
     }
 }
