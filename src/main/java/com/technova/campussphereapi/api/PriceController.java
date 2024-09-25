@@ -1,7 +1,9 @@
 package com.technova.campussphereapi.api;
 
+import com.technova.campussphereapi.dto.PriceDTO;
 import com.technova.campussphereapi.model.entity.Price;
-import com.technova.campussphereapi.service.TarifarioService;
+import com.technova.campussphereapi.service.PriceService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,45 +16,44 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/admin/tarifario")
+@RequestMapping("/price")
 public class PriceController {
-    private final TarifarioService tarifarioService;
+    private final PriceService priceService;
 
     @GetMapping
-    public ResponseEntity<List<Price>> getAllTarifas() {
-        List<Price> tarifas = tarifarioService.findAll();
-        return new ResponseEntity<List<Price>>(tarifas, HttpStatus.OK);
+    public ResponseEntity<List<PriceDTO>> list() {
+        List<PriceDTO> prices = priceService.findAll();
+        return new ResponseEntity<>(prices, HttpStatus.OK);
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<Price>> paginateTarifas(
-            @PageableDefault(size = 5, sort = "precio")Pageable pageable) {
-        Page<Price> tarifas = tarifarioService.paginate(pageable);
-        return new ResponseEntity<Page<Price>>(tarifas, HttpStatus.OK);
+    public ResponseEntity<Page<PriceDTO>> paginate(@PageableDefault(size = 5, sort = "precio")
+                                                       Pageable pageable) {
+        Page<PriceDTO> price = priceService.paginate(pageable);
+        return new ResponseEntity<>(price, HttpStatus.OK);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Price> getTarifaById(@PathVariable("id") Integer id) {
-        Price tarifa = tarifarioService.findById(id);
-        return new ResponseEntity<Price>(tarifa, HttpStatus.OK);
+    public ResponseEntity<PriceDTO> search(@PathVariable("id") Integer id) {
+        PriceDTO price = priceService.findById(id);
+        return new ResponseEntity<>(price, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Price> createTarifa(@RequestBody Price tarifa) {
-        Price newTarifa = tarifarioService.create(tarifa);
-        return new ResponseEntity<Price>(newTarifa, HttpStatus.CREATED);
+    public ResponseEntity<PriceDTO> create(@Valid @RequestBody PriceDTO priceDTO) {
+        PriceDTO newPrice = priceService.create(priceDTO);
+        return new ResponseEntity<>(newPrice, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Price> updateTarifa(@PathVariable("id") Integer id,
-                                              @RequestBody Price tarifa) {
-        Price updateTarifa = tarifarioService.update(id,tarifa);
-        return new ResponseEntity<Price>(updateTarifa, HttpStatus.OK);
+    public ResponseEntity<PriceDTO> update(@PathVariable("id") Integer id, @Valid @RequestBody PriceDTO priceDTO) {
+        PriceDTO updatedPrice = priceService.update(id,priceDTO);
+        return new ResponseEntity<>(updatedPrice, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Price> deleteTarifa(@PathVariable("id") Integer id) {
-        tarifarioService.delete(id);
+    public ResponseEntity<Price> delete(@PathVariable("id") Integer id) {
+        priceService.delete(id);
         return new ResponseEntity<Price>(HttpStatus.NO_CONTENT);
     }
 }
