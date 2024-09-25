@@ -1,7 +1,7 @@
 package com.technova.campussphereapi.service;
 
-import com.technova.campussphereapi.model.entity.Event;
+import com.technova.campussphereapi.dto.EventDetailsDTO;
 
 public interface EventService {
-    Event findById(Integer id);
+    EventDetailsDTO findById(Integer id);
 }

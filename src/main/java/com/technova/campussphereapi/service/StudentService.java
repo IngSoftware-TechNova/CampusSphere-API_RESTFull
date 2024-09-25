@@ -1,7 +1,7 @@
 package com.technova.campussphereapi.service;
 
-import com.technova.campussphereapi.model.entity.Student;
+import com.technova.campussphereapi.dto.StudentDTO;
 
 public interface StudentService {
-    Student findById(Integer id);
+    StudentDTO findById(Integer id);
 }
