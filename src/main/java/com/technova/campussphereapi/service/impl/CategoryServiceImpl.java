@@ -1,5 +1,8 @@
 package com.technova.campussphereapi.service.impl;
 
+import com.technova.campussphereapi.dto.CategoryDTO;
+import com.technova.campussphereapi.exception.ResourceNotFoundException;
+import com.technova.campussphereapi.mapper.CategoryMapper;
 import com.technova.campussphereapi.model.entity.Category;
 import com.technova.campussphereapi.repository.CategoryRepository;
 import com.technova.campussphereapi.service.CategoryService;
@@ -12,11 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class CategoryServiceImpl implements CategoryService {
 
     private final CategoryRepository categoryRepository;
+    private final CategoryMapper categoryMapper;
 
     @Transactional(readOnly = true)
     @Override
-    public Category findById(Integer id) {
-        return categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Category not found"));
+    public CategoryDTO findById(Integer id) {
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("La categoria con ID " + id + " no fue encontrada."));
+        return categoryMapper.toDTO(category);
     }
 }

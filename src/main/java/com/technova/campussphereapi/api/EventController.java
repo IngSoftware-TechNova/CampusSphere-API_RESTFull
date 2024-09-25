@@ -1,7 +1,10 @@
 package com.technova.campussphereapi.api;
 
+import com.technova.campussphereapi.dto.EventCreateUpdateDTO;
+import com.technova.campussphereapi.dto.EventDetailsDTO;
 import com.technova.campussphereapi.model.entity.Event;
 import com.technova.campussphereapi.service.EventService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,34 +20,34 @@ public class EventController {
     private final EventService eventService;
 
     @GetMapping
-    public ResponseEntity<List<Event>> list(){
-        List<Event> events = eventService.findAll();
-        return new ResponseEntity<List<Event>>(events, HttpStatus.OK);
+    public ResponseEntity<List<EventDetailsDTO>> list(){
+        List<EventDetailsDTO> events = eventService.findAll();
+        return new ResponseEntity<>(events, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Event> search(@PathVariable("id") Integer id){
-        Event event = eventService.findById(id);
-        return new ResponseEntity<Event>(event, HttpStatus.OK);
+    public ResponseEntity<EventDetailsDTO> search(@PathVariable("id") Integer id){
+        EventDetailsDTO event = eventService.findById(id);
+        return new ResponseEntity<>(event, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Event> create(@RequestBody Event event){
-        Event newEvent = eventService.create(event);
-        return new ResponseEntity<Event>(newEvent, HttpStatus.CREATED);
+    public ResponseEntity<EventDetailsDTO> create(@Valid @RequestBody EventCreateUpdateDTO event){
+        EventDetailsDTO newEvent = eventService.create(event);
+        return new ResponseEntity<>(newEvent, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Event> update(@PathVariable("id") Integer id,
-                                               @RequestBody Event event){
-        Event updateEvent = eventService.update(id, event);
-        return new ResponseEntity<Event>(updateEvent, HttpStatus.OK);
+    public ResponseEntity<EventDetailsDTO> update(@PathVariable("id") Integer id,
+                                                @Valid @RequestBody EventCreateUpdateDTO event){
+        EventDetailsDTO updateEvent = eventService.update(id, event);
+        return new ResponseEntity<>(updateEvent, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Event> delete(@PathVariable("id") Integer id){
         eventService.delete(id);
-        return new ResponseEntity<Event>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

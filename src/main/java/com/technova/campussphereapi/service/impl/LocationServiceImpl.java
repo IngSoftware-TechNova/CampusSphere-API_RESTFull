@@ -1,5 +1,8 @@
 package com.technova.campussphereapi.service.impl;
 
+import com.technova.campussphereapi.dto.LocationDTO;
+import com.technova.campussphereapi.exception.ResourceNotFoundException;
+import com.technova.campussphereapi.mapper.LocationMapper;
 import com.technova.campussphereapi.model.entity.Location;
 import com.technova.campussphereapi.repository.LocationRepository;
 import com.technova.campussphereapi.service.LocationService;
@@ -12,11 +15,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class LocationServiceImpl implements LocationService {
 
     private final LocationRepository locationRepository;
+    private final LocationMapper locationMapper;
 
     @Transactional(readOnly = true)
     @Override
-    public Location findById(Integer id) {
-        return locationRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Ubicacion not found"));
+    public LocationDTO findById(Integer id) {
+        Location location = locationRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("La locacion con ID " + id + " no fue encontrada."));
+        return locationMapper.toDTO(location);
     }
 }

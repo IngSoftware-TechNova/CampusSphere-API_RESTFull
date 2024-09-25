@@ -1,7 +1,7 @@
 package com.technova.campussphereapi.service;
 
-import com.technova.campussphereapi.model.entity.Category;
+import com.technova.campussphereapi.dto.CategoryDTO;
 
 public interface CategoryService {
-    Category findById(Integer id);
+    CategoryDTO findById(Integer id);
 }

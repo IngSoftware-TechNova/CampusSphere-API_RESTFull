@@ -1,5 +1,10 @@
 package com.technova.campussphereapi.service.impl;
 
+import com.technova.campussphereapi.dto.EventCreateUpdateDTO;
+import com.technova.campussphereapi.dto.EventDetailsDTO;
+import com.technova.campussphereapi.exception.BadRequestException;
+import com.technova.campussphereapi.exception.ResourceNotFoundException;
+import com.technova.campussphereapi.mapper.EventMapper;
 import com.technova.campussphereapi.model.entity.Category;
 import com.technova.campussphereapi.model.entity.Event;
 import com.technova.campussphereapi.model.entity.Price;
@@ -23,55 +28,77 @@ public class EventServiceImpl implements EventService {
     private final CategoryRepository categoryRepository;
     private final LocationRepository locationRepository;
     private final PriceRepository priceRepository;
+    private final EventMapper eventMapper;
 
     @Transactional(readOnly = true)
     @Override
-    public List<Event> findAll() {
-        return eventRepository.findAll();
+    public List<EventDetailsDTO> findAll() {
+        List<Event> events = eventRepository.findAll();
+        return events.stream()
+                .map(eventMapper::toDetailsDTO)
+                .toList();
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Event findById(Integer id) {
-        return eventRepository.findById(id).
-                orElseThrow(() -> new RuntimeException("Evento not found"));
+    public EventDetailsDTO findById(Integer id) {
+
+        Event event = eventRepository.findById(id).
+                orElseThrow(() -> new ResourceNotFoundException("Evento no encontrado con id: " + id));
+
+        return eventMapper.toDetailsDTO(event);
     }
 
     @Transactional
     @Override
-    public Event create(Event event) {
+    public EventDetailsDTO create(EventCreateUpdateDTO eventCreateUpdateDTO) {
+
+        eventRepository.findByNameAndDescription(eventCreateUpdateDTO.getName(), eventCreateUpdateDTO.getDescription())
+                .ifPresent(event -> {
+                    throw new BadRequestException("El evento ya existe");
+                });
+
         // Asigna los atributos necesarios antes de guardar
-        Category category = categoryRepository.findById(event.getCategory().getId())
-                .orElseThrow(() -> new RuntimeException("Categoria not found with id: " + event.getCategory().getId()));
+        Category category = categoryRepository.findById(eventCreateUpdateDTO.getCategoryId())
+                .orElseThrow(() -> new ResourceNotFoundException("Categoria not found with id: " + eventCreateUpdateDTO.getCategoryId()));
 
-        Location location = locationRepository.findById(event.getLocation().getId())
-                        .orElseThrow(() -> new RuntimeException("Ubicacion not found with id: " + event.getLocation().getId()));
+        Location location = locationRepository.findById(eventCreateUpdateDTO.getLocationId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Ubicacion not found with id: " + eventCreateUpdateDTO.getLocationId()));
 
-        Price price = priceRepository.findById(event.getPrice().getId())
-                        .orElseThrow(() -> new RuntimeException("Tarifario not found with id: " + event.getPrice().getId()));
+        Price price = priceRepository.findById(eventCreateUpdateDTO.getPriceId())
+                        .orElseThrow(() -> new ResourceNotFoundException("Tarifario not found with id: " + eventCreateUpdateDTO.getPriceId()));
+
+        Event event = eventMapper.toEntity(eventCreateUpdateDTO);
 
         event.setCategory(category);
         event.setLocation(location);
         event.setPrice(price);
 
-        return eventRepository.save(event);
+        return eventMapper.toDetailsDTO(eventRepository.save(event));
     }
 
     @Transactional
     @Override
-    public Event update(Integer id, Event updateEvent) {
+    public EventDetailsDTO update(Integer id, EventCreateUpdateDTO updateEvent) {
 
-        Event eventFromDB = findById(id);
+        Event eventFromDB = eventRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Evento non existente con id" + id));
+
+        eventRepository.findByNameAndDescription(updateEvent.getName(), updateEvent.getDescription())
+                .ifPresent(event -> {
+                    throw new BadRequestException("El evento ya existe");
+                });
 
         // Asigna los atributos necesarios antes de guardar
-        Category category = categoryRepository.findById(updateEvent.getCategory().getId())
-                .orElseThrow(() -> new RuntimeException("Categoria not found with id: " + updateEvent.getCategory().getId()));
+        Category category = categoryRepository.findById(updateEvent.getCategoryId())
+                .orElseThrow(() -> new RuntimeException("Categoria not found with id: " + updateEvent.getCategoryId()));
 
-        Location location = locationRepository.findById(updateEvent.getLocation().getId())
-                .orElseThrow(() -> new RuntimeException("Ubicacion not found with id: " + updateEvent.getLocation().getId()));
+        Location location = locationRepository.findById(updateEvent.getLocationId())
+                .orElseThrow(() -> new RuntimeException("Ubicacion not found with id: " + updateEvent.getLocationId()));
 
-        Price price = priceRepository.findById(updateEvent.getPrice().getId())
-                .orElseThrow(() -> new RuntimeException("Tarifario not found with id: " + updateEvent.getPrice().getId()));
+        Price price = priceRepository.findById(updateEvent.getPriceId())
+                .orElseThrow(() -> new RuntimeException("Tarifario not found with id: " + updateEvent.getPriceId()));
+
+        //event = eventMapper.toEntity(updateEvent);
 
         eventFromDB.setName(updateEvent.getName());
         eventFromDB.setDescription(updateEvent.getDescription());
@@ -80,13 +107,15 @@ public class EventServiceImpl implements EventService {
         eventFromDB.setCategory(category);
         eventFromDB.setPrice(price);
 
-        return eventRepository.save(eventFromDB);
+        return  eventMapper.toDetailsDTO(eventRepository.save(eventFromDB));
     }
 
     @Transactional
     @Override
     public void delete(Integer id) {
-        Event event = findById(id);
+        Event event = eventRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Evento non existente con id: " + id));
         eventRepository.delete(event);
     }
+
 }

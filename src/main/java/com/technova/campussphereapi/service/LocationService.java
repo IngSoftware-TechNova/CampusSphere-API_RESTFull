@@ -1,7 +1,7 @@
 package com.technova.campussphereapi.service;
 
-import com.technova.campussphereapi.model.entity.Location;
+import com.technova.campussphereapi.dto.LocationDTO;
 
 public interface LocationService {
-    Location findById(Integer id);
+    LocationDTO findById(Integer id);
 }
