@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
-
 import javax.management.relation.RoleNotFoundException;
 import java.time.LocalDateTime;
 import java.util.stream.Collectors;
@@ -17,7 +16,7 @@ import java.util.stream.Collectors;
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
-    public ResponseEntity<CustomErrorResponse> handleModelNotFoundException(ResourceNotFoundException ex, WebRequest request){
+    public ResponseEntity<CustomErrorResponse> handleModelNotFoundException(ResourceNotFoundException ex, WebRequest request) {
         CustomErrorResponse err = new CustomErrorResponse(LocalDateTime.now(),
                 ex.getMessage(),
                 request.getDescription(false));
@@ -26,7 +25,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler(BadRequestException.class)
-    public ResponseEntity<CustomErrorResponse> handleModelNotFoundException(BadRequestException ex, WebRequest request){
+    public ResponseEntity<CustomErrorResponse> handleModelNotFoundException(BadRequestException ex, WebRequest request) {
         CustomErrorResponse err = new CustomErrorResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
 
         return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
@@ -38,10 +37,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(err, HttpStatus.FORBIDDEN);
     }
-
-
     @ExceptionHandler(Exception.class)
     public ResponseEntity<CustomErrorResponse> handleAllException(Exception ex, WebRequest request){
+
         CustomErrorResponse err = new CustomErrorResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(err, HttpStatus.INTERNAL_SERVER_ERROR);
     }
@@ -53,6 +51,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                 ).collect(Collectors.joining(","));
 
         /*for(FieldError err : ex.getBindingResult().getFieldErrors()){
+
             msg += err.getField().concat(":").concat(err.getDefaultMessage());
         }*/
 
@@ -60,5 +59,4 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(err, HttpStatus.UNPROCESSABLE_ENTITY);
     }
-
 }
