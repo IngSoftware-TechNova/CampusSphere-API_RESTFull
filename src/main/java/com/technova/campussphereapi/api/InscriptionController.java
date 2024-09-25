@@ -2,12 +2,15 @@ package com.technova.campussphereapi.api;
 
 import com.technova.campussphereapi.dto.InscriptionCreateUpdateDTO;
 import com.technova.campussphereapi.dto.InscriptionDetailsDTO;
+import com.technova.campussphereapi.dto.InscriptionReportDTO;
 import com.technova.campussphereapi.service.InscriptionService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/inscriptions")
@@ -22,5 +25,10 @@ public class InscriptionController {
         return new ResponseEntity<>(newInscription, HttpStatus.CREATED);
     }
 
+    @GetMapping("/report")
+    public ResponseEntity<List<InscriptionReportDTO>> getInscriptionPerEventReport(){
+        List<InscriptionReportDTO> reports = inscriptionService.getInscriptionPerEventReport();
+        return ResponseEntity.ok(reports);
+    }
 
 }

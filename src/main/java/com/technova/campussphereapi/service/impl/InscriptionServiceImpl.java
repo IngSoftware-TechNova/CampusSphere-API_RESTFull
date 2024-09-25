@@ -2,6 +2,7 @@ package com.technova.campussphereapi.service.impl;
 
 import com.technova.campussphereapi.dto.InscriptionCreateUpdateDTO;
 import com.technova.campussphereapi.dto.InscriptionDetailsDTO;
+import com.technova.campussphereapi.dto.InscriptionReportDTO;
 import com.technova.campussphereapi.exception.BadRequestException;
 import com.technova.campussphereapi.exception.ResourceNotFoundException;
 import com.technova.campussphereapi.mapper.InscriptionMapper;
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -52,6 +54,24 @@ public class InscriptionServiceImpl implements InscriptionService {
         inscription.setInscriptionStatus(InscriptionStatus.PENDING);
 
         return inscriptionMapper.toDetailsDTO(inscriptionRepository.save(inscription));
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<InscriptionReportDTO> getInscriptionPerEventReport() {
+
+        List<Object[]> results = inscriptionRepository.getInscriptionPerEventReport();
+
+        List<InscriptionReportDTO> inscriptionReportDTOS = results.stream()
+                .map(result ->
+                        new InscriptionReportDTO (
+                                (String) result[0],
+                                ((Integer) result[1]).intValue()
+                        )
+                ).toList();
+
+
+        return inscriptionReportDTOS;
     }
 
 }

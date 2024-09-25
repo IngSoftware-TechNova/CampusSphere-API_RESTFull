@@ -58,4 +58,21 @@ INSERT INTO programaciones_eventos (fecha_inicio, fecha_fin, horario_id, evento_
                                                                                         ('2024-09-09 08:00:00.000000', '2024-09-09 12:00:00.000000', 1, 1),
                                                                                         ('2024-09-09 14:00:00.000000', '2024-09-09 18:00:00.000000', 2, 2),
                                                                                         ('2024-09-10 08:00:00.000000', '2024-09-10 12:00:00.000000', 3, 3);
+
+funcion de postgre
+CREATE OR REPLACE FUNCTION fn_list_inscriptions_per_event_report()
+RETURNS TABLE(
+	event_name VARCHAR,
+	total_inscriptions INT
+) AS $$
+BEGIN
+	RETURN QUERY
+	SELECT e.name AS event_name, COUNT(i.id)::int AS total_inscriptions
+	FROM events e
+	LEFT JOIN inscriptions i ON e.id = i.event_id
+	GROUP BY e.name
+	ORDER BY total_inscriptions DESC;
+END; $$
+LANGUAGE plpgsql;
+
  */
