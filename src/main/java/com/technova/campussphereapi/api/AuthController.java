@@ -1,43 +1,45 @@
 package com.technova.campussphereapi.api;
 
-import com.technova.campussphereapi.model.entity.Estudiante;
-import com.technova.campussphereapi.service.EstudianteService;
+import com.technova.campussphereapi.dto.StudentProfileDTO;
+import com.technova.campussphereapi.dto.StudentRegistrationDTO;
+import com.technova.campussphereapi.model.entity.Student;
+import com.technova.campussphereapi.service.StudentService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/auth")
 
 public class AuthController {
-
-    private final EstudianteService estudianteService;
+    private final StudentService estudianteService;
 
     @PostMapping("/register")
-    public ResponseEntity<Estudiante> createEstudiante(@RequestBody Estudiante estudiante) {
-        Estudiante newEstudiante = estudianteService.create(estudiante);
-        return new ResponseEntity<Estudiante>(newEstudiante, HttpStatus.CREATED);
+    public ResponseEntity<StudentRegistrationDTO> create(@Valid @RequestBody StudentRegistrationDTO studentRegistrationDTO) {
+        StudentRegistrationDTO createStudent = estudianteService.create(studentRegistrationDTO);
+        return new ResponseEntity<StudentRegistrationDTO>(createStudent, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Estudiante> updateEstudiante(@PathVariable("id") Integer id,
-                                               @RequestBody Estudiante evento){
-        Estudiante updateEvento = estudianteService.update(id, evento);
-        return new ResponseEntity<Estudiante>(updateEvento, HttpStatus.OK);
+    public ResponseEntity<StudentRegistrationDTO> update(@PathVariable("id") Integer id, @Valid @RequestBody StudentRegistrationDTO studentRegistrationDTO){
+        StudentRegistrationDTO updateStudent = estudianteService.update(id, studentRegistrationDTO);
+        return new ResponseEntity<StudentRegistrationDTO>(updateStudent, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Estudiante> deleteEstudiante(@PathVariable("id") Integer id){
+    public ResponseEntity<Student> delete(@PathVariable("id") Integer id){
         estudianteService.delete(id);
-        return new ResponseEntity<Estudiante>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Student>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Estudiante> getEstudiante(@PathVariable("id") Integer id){
-        Estudiante estudiante = estudianteService.findById(id);
-        return new ResponseEntity<Estudiante>(estudiante, HttpStatus.OK);
+    public ResponseEntity<StudentProfileDTO> findById(@PathVariable("id") Integer id){
+        StudentProfileDTO student = estudianteService.findById(id);
+        return new ResponseEntity<StudentProfileDTO>(student, HttpStatus.OK);
     }
 
 }
