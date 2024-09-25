@@ -1,9 +1,11 @@
 package com.technova.campussphereapi.api;
+import com.technova.campussphereapi.dto.ComentarioDTO;
+import com.technova.campussphereapi.dto.ComentarioReportDTO;
 import com.technova.campussphereapi.service.ComentarioService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import com.technova.campussphereapi.model.entity.Comentario;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,38 +21,45 @@ public class ComentarioController {
     private final ComentarioService comentarioService;
 
     @GetMapping
-    public ResponseEntity<List<Comentario>> getAllComentario(){
-        List<Comentario> comentario = comentarioService.getAll();
-        return new ResponseEntity<>(comentario, HttpStatus.OK);
+    public ResponseEntity<List<ComentarioDTO>> getAllComentario(){
+        List<ComentarioDTO> comentarios = comentarioService.getAll();
+        return new ResponseEntity<>(comentarios, HttpStatus.OK);
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<Comentario>> paginateComentarios(
+    public ResponseEntity<Page<ComentarioDTO>> paginateComentarios(
             @PageableDefault(size = 5, sort = "name") Pageable pageable){
-        Page<Comentario> comentario = comentarioService.paginate(pageable);
-        return new ResponseEntity<Page<Comentario>>(comentario, HttpStatus.OK);
+        Page<ComentarioDTO> comentario = comentarioService.paginate(pageable);
+        return new ResponseEntity<>(comentario, HttpStatus.OK);
     }
 
+    @GetMapping("/report")
+    public ResponseEntity<List<ComentarioReportDTO>> getComentarioReport(){
+        List<ComentarioReportDTO> reports = comentarioService.getComentarioReportByDate();
+        return ResponseEntity.ok(reports);
+    }
+
+
     @GetMapping("/{id}")
-    public ResponseEntity<Comentario> getComentarioById(@PathVariable("id") Integer id){
-        Comentario comentario = comentarioService.findById(id);
-        return new ResponseEntity<Comentario>(comentario, HttpStatus.OK);
+    public ResponseEntity<ComentarioDTO> getById(@PathVariable Integer id){
+        ComentarioDTO comentario = comentarioService.findById(id);
+        return new ResponseEntity<>(comentario, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Comentario> createComentario(@RequestBody Comentario comentario){
-        Comentario newComentario = comentarioService.create(comentario);
-        return new ResponseEntity<>(newComentario, HttpStatus.CREATED);
+    public ResponseEntity<ComentarioDTO> create(@Valid @RequestBody ComentarioDTO comentarioDTO){
+        ComentarioDTO createdComentario = comentarioService.create(comentarioDTO);
+        return new ResponseEntity<>(createdComentario, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Comentario> updateComentario(@PathVariable("id") Integer id, @RequestBody Comentario comentario){
-        Comentario updateComentario = comentarioService.update(id, comentario);
+    public ResponseEntity<ComentarioDTO> update(@PathVariable Integer id,@Valid @RequestBody ComentarioDTO comentarioDTO){
+        ComentarioDTO updateComentario = comentarioService.update(id, comentarioDTO);
         return new ResponseEntity<>(updateComentario, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteComentario(@PathVariable("id") Integer id){
+    public ResponseEntity<Void> deleteComentario(@PathVariable Integer id){
         comentarioService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
