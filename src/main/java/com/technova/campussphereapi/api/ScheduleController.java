@@ -1,7 +1,9 @@
 package com.technova.campussphereapi.api;
 
-import com.technova.campussphereapi.model.entity.Horario;
+import com.technova.campussphereapi.dto.ScheduleDTO;
+import com.technova.campussphereapi.model.entity.Schedule;
 import com.technova.campussphereapi.service.ScheduleService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -14,46 +16,45 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/admin/horario")
+@RequestMapping("/admin/schedule")
 public class ScheduleController {
     private final ScheduleService scheduleService;
 
     @GetMapping
-    public ResponseEntity<List<Horario>> findAll() {
-        List<Horario> horarios = scheduleService.findAll();
-        return new ResponseEntity<List<Horario>>(horarios, HttpStatus.OK);
+    public ResponseEntity<List<ScheduleDTO>> findAll() {
+        List<ScheduleDTO> schedules = scheduleService.findAll();
+        return new ResponseEntity<>(schedules, HttpStatus.OK);
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<Horario>> paginate(
-            @PageableDefault(size = 5, sort = "hora_inicio")Pageable pageable) {
-        Page<Horario> horarios = scheduleService.paginate(pageable);
-        return new ResponseEntity<Page<Horario>>(horarios, HttpStatus.OK);
+    public ResponseEntity<Page<ScheduleDTO>> paginate(
+            @PageableDefault(size = 5, sort = "start_hour")Pageable pageable) {
+        Page<ScheduleDTO> schedules = scheduleService.paginate(pageable);
+        return new ResponseEntity<>(schedules, HttpStatus.OK);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Horario> findById(@PathVariable("id") Integer id) {
-        Horario horario = scheduleService.findById(id);
-        return new ResponseEntity<Horario>(horario, HttpStatus.OK);
+    public ResponseEntity<ScheduleDTO> findById(@PathVariable("id") Integer id) {
+        ScheduleDTO schedule = scheduleService.findById(id);
+        return new ResponseEntity<>(schedule, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Horario> create(@RequestBody Horario horario) {
-        Horario newHorario = scheduleService.create(horario);
-        return new ResponseEntity<Horario>(newHorario, HttpStatus.CREATED);
+    public ResponseEntity<ScheduleDTO> create(@Valid @RequestBody ScheduleDTO scheduleDTO) {
+        ScheduleDTO newSchedule = scheduleService.create(scheduleDTO);
+        return new ResponseEntity<>(newSchedule, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Horario> update(@PathVariable("id") Integer id,
-                                          @RequestBody Horario horario) {
-        Horario updateHorario = scheduleService.update(id,horario);
-        return new ResponseEntity<Horario>(updateHorario, HttpStatus.OK);
+    public ResponseEntity<ScheduleDTO> update(@PathVariable("id") Integer id,
+                                           @Valid@RequestBody ScheduleDTO scheduleDTO) {
+        ScheduleDTO updateSchedule = scheduleService.update(id, scheduleDTO);
+        return new ResponseEntity<>(updateSchedule, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Horario> delete(@PathVariable("id") Integer id) {
+    public ResponseEntity<Schedule> delete(@PathVariable("id") Integer id) {
         scheduleService.delete(id);
-        return new ResponseEntity<Horario>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<Schedule>(HttpStatus.NO_CONTENT);
     }
-
 }
