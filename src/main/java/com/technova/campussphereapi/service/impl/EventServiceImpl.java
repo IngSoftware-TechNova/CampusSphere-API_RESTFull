@@ -2,6 +2,7 @@ package com.technova.campussphereapi.service.impl;
 
 import com.technova.campussphereapi.dto.EventCreateUpdateDTO;
 import com.technova.campussphereapi.dto.EventDetailsDTO;
+import com.technova.campussphereapi.dto.FilteredEventsDTO;
 import com.technova.campussphereapi.exception.BadRequestException;
 import com.technova.campussphereapi.exception.ResourceNotFoundException;
 import com.technova.campussphereapi.mapper.EventMapper;
@@ -18,6 +19,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -47,6 +50,12 @@ public class EventServiceImpl implements EventService {
                 orElseThrow(() -> new ResourceNotFoundException("Evento no encontrado con id: " + id));
 
         return eventMapper.toDetailsDTO(event);
+    }
+
+    @Override
+    public List<FilteredEventsDTO> getEventsFiltered(BigDecimal precioMin, BigDecimal precioMax, String categoriaName, String ubicacion) {
+        List<Object[]> results = eventRepository.getEventsFiltered(precioMin, precioMax, categoriaName, ubicacion);
+        //Mapeo de la lista de objetos a una lista de FilteredEventsDTO
     }
 
     @Transactional
