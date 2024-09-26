@@ -52,10 +52,25 @@ public class EventServiceImpl implements EventService {
         return eventMapper.toDetailsDTO(event);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<FilteredEventsDTO> getEventsFiltered(BigDecimal precioMin, BigDecimal precioMax, String categoriaName, String ubicacion) {
         List<Object[]> results = eventRepository.getEventsFiltered(precioMin, precioMax, categoriaName, ubicacion);
         //Mapeo de la lista de objetos a una lista de FilteredEventsDTO
+        List<FilteredEventsDTO> filteredEventsDTOS = results.stream()
+                .map(result ->
+                        new FilteredEventsDTO(
+                                ((Integer) result[0]).intValue(),  // id (event_id)
+                                (String) result[1],                // name (event_name)
+                                (String) result[2],                // description (event_description)
+                                (Integer) result[3],               // capacity (event_capacity)
+                                (String) result[4],                // locationName (location_name)
+                                (String) result[5],                // categoryName (category_name)
+                                (BigDecimal) result[6]             // PriceValue (event_price)
+                        )
+                ).toList();
+
+        return filteredEventsDTOS;
     }
 
     @Transactional

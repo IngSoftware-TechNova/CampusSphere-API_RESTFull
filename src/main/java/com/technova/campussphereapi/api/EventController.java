@@ -2,6 +2,8 @@ package com.technova.campussphereapi.api;
 
 import com.technova.campussphereapi.dto.EventCreateUpdateDTO;
 import com.technova.campussphereapi.dto.EventDetailsDTO;
+import com.technova.campussphereapi.dto.EventFilterDTO;
+import com.technova.campussphereapi.dto.FilteredEventsDTO;
 import com.technova.campussphereapi.model.entity.Event;
 import com.technova.campussphereapi.service.EventService;
 import jakarta.validation.Valid;
@@ -10,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -24,6 +27,20 @@ public class EventController {
         List<EventDetailsDTO> events = eventService.findAll();
         return new ResponseEntity<>(events, HttpStatus.OK);
     }
+
+    @PostMapping("/filtered")
+    public ResponseEntity<List<FilteredEventsDTO>> getFilteredEvents(@RequestBody EventFilterDTO filterDTO) {
+        // Llamar al servicio pasando los valores desde el DTO
+        List<FilteredEventsDTO> filteredEvents = eventService.getEventsFiltered(
+                filterDTO.getPrecioMin(),
+                filterDTO.getPrecioMax(),
+                filterDTO.getCategoriaName(),
+                filterDTO.getUbicacion()
+        );
+
+        return ResponseEntity.ok(filteredEvents);
+    }
+
 
     @GetMapping("/{id}")
     public ResponseEntity<EventDetailsDTO> search(@PathVariable("id") Integer id){
