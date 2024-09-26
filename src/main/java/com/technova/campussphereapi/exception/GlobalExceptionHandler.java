@@ -39,7 +39,6 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
     @ExceptionHandler(Exception.class)
     public ResponseEntity<CustomErrorResponse> handleAllException(Exception ex, WebRequest request){
-
         CustomErrorResponse err = new CustomErrorResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(err, HttpStatus.INTERNAL_SERVER_ERROR);
     }
