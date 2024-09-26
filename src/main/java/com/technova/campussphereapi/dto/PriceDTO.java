@@ -2,7 +2,6 @@ package com.technova.campussphereapi.dto;
 
 import jakarta.validation.constraints.*;
 import lombok.Data;
-
 import java.math.BigDecimal;
 
 @Data
@@ -17,4 +16,5 @@ public class PriceDTO {
     @NotBlank(message = "La descripcion es obligatorio")
     @Size(max = 100, message = "La descripcion debe tener 100 caracteres o menos")
     private String description;
+
 }

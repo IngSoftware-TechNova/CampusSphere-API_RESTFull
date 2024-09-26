@@ -9,3 +9,4 @@ public class BadRequestException extends RuntimeException{
         super(message);
     }
 }
+

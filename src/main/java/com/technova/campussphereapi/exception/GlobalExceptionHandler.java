@@ -11,6 +11,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import javax.management.relation.RoleNotFoundException;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RestControllerAdvice
@@ -20,15 +21,21 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         CustomErrorResponse err = new CustomErrorResponse(LocalDateTime.now(),
                 ex.getMessage(),
                 request.getDescription(false));
-
         return new ResponseEntity<>(err, HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(BadRequestException.class)
     public ResponseEntity<CustomErrorResponse> handleModelNotFoundException(BadRequestException ex, WebRequest request) {
+
         CustomErrorResponse err = new CustomErrorResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
 
         return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
+    }
+
+    public ResponseEntity<CustomErrorResponse> handleBadRequestException(BadRequestException ex, WebRequest request) {
+    CustomErrorResponse err = new CustomErrorResponse(LocalDateTime.now(), ex.getMessage(), request.getDescription(false));
+
+    return new ResponseEntity<>(err, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(RoleNotFoundException.class)
@@ -53,9 +60,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
             msg += err.getField().concat(":").concat(err.getDefaultMessage());
         }*/
-
         CustomErrorResponse err = new CustomErrorResponse(LocalDateTime.now(), msg, request.getDescription(false));
-
         return new ResponseEntity<>(err, HttpStatus.UNPROCESSABLE_ENTITY);
     }
 }
+

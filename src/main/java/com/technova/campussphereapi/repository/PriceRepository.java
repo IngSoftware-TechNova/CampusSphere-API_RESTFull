@@ -9,6 +9,4 @@ import java.util.Optional;
 public interface PriceRepository extends JpaRepository<Price, Integer> {
 
     Optional<Price> findByPriceAndDescription(BigDecimal price, String description);
-
-
 }
