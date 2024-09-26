@@ -1,18 +1,24 @@
 package com.technova.campussphereapi.service;
 
-import com.technova.campussphereapi.model.entity.Puntuacion;
+import com.technova.campussphereapi.dto.PuntuacionDTO;
+import com.technova.campussphereapi.dto.PuntuacionReportDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
 public interface PuntuacionService {
-    List<Puntuacion> getAll();
-    Page<Puntuacion> paginate(Pageable pageable);
+    List<PuntuacionDTO> getAll();
 
-    Puntuacion findById(Integer id);
+    List<PuntuacionReportDTO> getPuntuacionReportByDate();
 
-    Puntuacion create(Puntuacion puntuacion);
-    Puntuacion update(Integer id, Puntuacion updateCategory);
+    Page<PuntuacionDTO> paginate(Pageable pageable);
+
+    PuntuacionDTO findById(Integer id);
+
+    PuntuacionDTO create(PuntuacionDTO PuntuacionDTO);
+
+    PuntuacionDTO update(Integer id, PuntuacionDTO updatePuntuacionDTO);
+
     void delete(Integer id);
 }

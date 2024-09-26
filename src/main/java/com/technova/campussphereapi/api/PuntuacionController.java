@@ -1,9 +1,11 @@
 package com.technova.campussphereapi.api;
+import com.technova.campussphereapi.dto.PuntuacionDTO;
+import com.technova.campussphereapi.dto.PuntuacionReportDTO;
 import com.technova.campussphereapi.service.PuntuacionService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import com.technova.campussphereapi.model.entity.Puntuacion;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,42 +18,49 @@ import java.util.List;
 @RequestMapping("/puntuacion")
 public class PuntuacionController {
 
-    private final PuntuacionService puntuacionService;
+    private final PuntuacionService PuntuacionService;
 
     @GetMapping
-    public ResponseEntity<List<Puntuacion>> getAllPuntuacion(){
-        List<Puntuacion> puntuacion = puntuacionService.getAll();
-        return new ResponseEntity<>(puntuacion, HttpStatus.OK);
+    public ResponseEntity<List<PuntuacionDTO>> getAllPuntuacion(){
+        List<PuntuacionDTO> puntuaciones = PuntuacionService.getAll();
+        return new ResponseEntity<>(puntuaciones, HttpStatus.OK);
     }
 
     @GetMapping("/page")
-    public ResponseEntity<Page<Puntuacion>> paginatePuntuacions(
+    public ResponseEntity<Page<PuntuacionDTO>> paginatePuntuaciones(
             @PageableDefault(size = 5, sort = "name") Pageable pageable){
-        Page<Puntuacion> puntuacion = puntuacionService.paginate(pageable);
-        return new ResponseEntity<Page<Puntuacion>>(puntuacion, HttpStatus.OK);
+        Page<PuntuacionDTO> puntuacion = PuntuacionService.paginate(pageable);
+        return new ResponseEntity<>(puntuacion, HttpStatus.OK);
     }
 
+    @GetMapping("/report")
+    public ResponseEntity<List<PuntuacionReportDTO>> getPuntuacionReport(){
+        List<PuntuacionReportDTO> reports = PuntuacionService.getPuntuacionReportByDate();
+        return ResponseEntity.ok(reports);
+    }
+
+
     @GetMapping("/{id}")
-    public ResponseEntity<Puntuacion> getPuntuacionById(@PathVariable("id") Integer id){
-        Puntuacion puntuacion = puntuacionService.findById(id);
-        return new ResponseEntity<Puntuacion>(puntuacion, HttpStatus.OK);
+    public ResponseEntity<PuntuacionDTO> getById(@PathVariable Integer id){
+        PuntuacionDTO puntuacion = PuntuacionService.findById(id);
+        return new ResponseEntity<>(puntuacion, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Puntuacion> createPuntuacion(@RequestBody Puntuacion puntuacion){
-        Puntuacion newPuntuacion = puntuacionService.create(puntuacion);
-        return new ResponseEntity<>(newPuntuacion, HttpStatus.CREATED);
+    public ResponseEntity<PuntuacionDTO> create(@Valid @RequestBody PuntuacionDTO PuntuacionDTO){
+        PuntuacionDTO createdPuntuacion = PuntuacionService.create(PuntuacionDTO);
+        return new ResponseEntity<>(createdPuntuacion, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Puntuacion> updatePuntuacion(@PathVariable("id") Integer id, @RequestBody Puntuacion puntuacion){
-        Puntuacion updatePuntuacion = puntuacionService.update(id, puntuacion);
+    public ResponseEntity<PuntuacionDTO> update(@PathVariable Integer id,@Valid @RequestBody PuntuacionDTO PuntuacionDTO){
+        PuntuacionDTO updatePuntuacion = PuntuacionService.update(id, PuntuacionDTO);
         return new ResponseEntity<>(updatePuntuacion, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePuntuacion(@PathVariable("id") Integer id){
-        puntuacionService.delete(id);
+    public ResponseEntity<Void> deletePuntuacion(@PathVariable Integer id){
+        PuntuacionService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
