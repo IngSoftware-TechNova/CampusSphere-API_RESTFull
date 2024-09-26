@@ -21,5 +21,5 @@ public class EventCreateUpdateDTO {
     private Integer locationId;
     @NotNull(message = "El precio es obligatorio")
     private Integer priceId;
-
 }
+

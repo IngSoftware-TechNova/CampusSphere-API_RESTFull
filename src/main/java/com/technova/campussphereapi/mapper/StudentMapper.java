@@ -2,6 +2,7 @@ package com.technova.campussphereapi.mapper;
 
 import com.technova.campussphereapi.dto.StudentProfileDTO;
 import com.technova.campussphereapi.dto.StudentRegistrationDTO;
+import com.technova.campussphereapi.dto.StudentDTO;
 import com.technova.campussphereapi.model.entity.Student;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -26,5 +27,7 @@ public class StudentMapper {
         return modelMapper.map(student, StudentProfileDTO.class);
     }
 
-
+    public StudentDTO toDTO (Student student) {
+        return modelMapper.map(student, StudentDTO.class);
+    }
 }

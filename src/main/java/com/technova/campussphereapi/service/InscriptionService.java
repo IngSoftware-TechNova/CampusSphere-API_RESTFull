@@ -1,0 +1,12 @@
+package com.technova.campussphereapi.service;
+
+import com.technova.campussphereapi.dto.InscriptionCreateUpdateDTO;
+import com.technova.campussphereapi.dto.InscriptionDetailsDTO;
+import com.technova.campussphereapi.dto.InscriptionReportDTO;
+
+import java.util.List;
+
+public interface InscriptionService {
+    InscriptionDetailsDTO create(InscriptionCreateUpdateDTO inscriptionCreateUpdateDTO);
+    List<InscriptionReportDTO> getInscriptionPerEventReport();
+}

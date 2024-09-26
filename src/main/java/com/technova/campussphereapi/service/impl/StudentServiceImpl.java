@@ -4,6 +4,7 @@ import com.technova.campussphereapi.dto.StudentProfileDTO;
 import com.technova.campussphereapi.dto.StudentRegistrationDTO;
 import com.technova.campussphereapi.exception.BadRequestException;
 import com.technova.campussphereapi.exception.ResourceNotFoundException;
+import com.technova.campussphereapi.mapper.EventMapper;
 import com.technova.campussphereapi.mapper.StudentMapper;
 import com.technova.campussphereapi.model.entity.Student;
 import com.technova.campussphereapi.repository.StudentRepository;
@@ -11,7 +12,6 @@ import com.technova.campussphereapi.service.StudentService;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 
 @Service
@@ -76,6 +76,4 @@ public class StudentServiceImpl implements StudentService {
                 .orElseThrow(() -> new ResourceNotFoundException("El autor con ID " + id + " no fue encontrado"));
         studentRepository.delete(student);
     }
-
-
 }

@@ -23,6 +23,7 @@ public class Event {
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_event_categories"))
+
     private Category category;
 
     @ManyToOne

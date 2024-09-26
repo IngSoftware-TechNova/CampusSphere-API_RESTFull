@@ -34,5 +34,4 @@ public class EventMapper {
     public EventCreateUpdateDTO toCreateUpdateDTO(Event event) {
         return modelMapper.map(event, EventCreateUpdateDTO.class);
     }
-
 }

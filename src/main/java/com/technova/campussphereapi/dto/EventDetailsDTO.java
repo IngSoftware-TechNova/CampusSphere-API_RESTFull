@@ -13,9 +13,8 @@ public class EventDetailsDTO {
     private String name;
     private Integer capacity;
     private String description;
-
     private String categoryName;
     private String locationName;
     private BigDecimal PriceValue;
-
 }
+
