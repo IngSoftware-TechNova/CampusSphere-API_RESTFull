@@ -1,9 +1,13 @@
 # CampusSphere-API_RESTFull
+
 ## Introducción
+
 **CampusSphere** es una aplicacion web con el objetivo de facilitar a los estudiantes inscribirse, visualizar y calificar en eventos universitarios organizados por la universidad. A través de esta plataforma, los alumnos podrán filtrar eventos, marcar eventos que les interesen y recibir notificaciones sobre sus actividades. 
+
 El enfoque de CampusSphere está en mejorar la participación estudiantil y fortalecer la comunidad universitaria, proporcionando un espacio centralizado para gestionar y promover la vida académica y social. 
 
 ### Colaboradores del Proyecto
+
 | **Nombre**                        | **Rol**                                     | **Codigo**                                                 |
 |-----------------------------------|---------------------------------------------|------------------------------------------------------------|
 | Andrés Joshua Rodríguez Guerrero    | Miembro                                  | U202121973           |
@@ -12,17 +16,21 @@ El enfoque de CampusSphere está en mejorar la participación estudiantil y fort
 | Willam Alexander Huamán Saavedra    | Miembro                                  | U20211E088           |
 
 ### Revisa el Progreso del Proyecto CampusSphere
-| **Columna**       | **Descripción**                                                                                                                                    |
-|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Backlog**       | Contiene todas las historias de usuario, tareas y características que deben desarrollarse. Es el listado de todo el trabajo pendiente.              |
-| **En Progreso**   | Incluye las tareas que están actualmente en desarrollo. Visualiza el trabajo en curso para asegurar el flujo continuo de trabajo.                   |
+
+| **Columna**       | **Descripción**                                                                                                                             |
+|-------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
+| **Backlog**       | Contiene todas las historias de usuario, tareas y características que deben desarrollarse. Es el listado de todo el trabajo pendiente.      |
+| **En Progreso**   | Incluye las tareas que están actualmente en desarrollo. Visualiza el trabajo en curso para asegurar el flujo continuo de trabajo.           |
 | **Revisión**      | Después de completar una tarea, se mueve aquí para una revisión de código y revisión por pares (peer review). Esta fase incluye la creación de **pull requests** para asegurar que el código cumpla con los estándares de calidad antes de integrarse al proyecto principal. |
 | **En Pruebas**    | Contiene las tareas que han pasado la revisión de código y necesitan pruebas exhaustivas (unitarias, de integración y de aceptación) para garantizar su calidad. |
-| **Hecho**         | Las tareas completamente desarrolladas, revisadas y probadas se mueven aquí, indicando que están listas y finalizadas.                               |
+| **Hecho**         | Las tareas completamente desarrolladas, revisadas y probadas se mueven aquí, indicando que están listas y finalizadas.                      |
+
 Mira cómo va avanzando nuestro trabajo visitando el siguiente enlace: [Tablero de Trello](https://trello.com/b/aChiHt0V/ing-software).
 
 ### Funcionalidades de la Aplicación CampusSphere
+
 #### **Módulo de Gestión de Usuarios**
+
 - **Creación de Usuarios e Inicio de Sesión:**
     - Permitir a los usuarios registrarse en la plataforma con roles específicos.
     - Implementación de autenticación y autorización mediante JWT.
