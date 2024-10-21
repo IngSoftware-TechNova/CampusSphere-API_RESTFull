@@ -5,7 +5,7 @@ INSERT INTO roles (id, name) VALUES
 
 
 INSERT INTO users (id, role_id, email, password) VALUES
-(1, 2, 'admin@example.com', 'admin123'),
+(1, 1, 'admin@example.com', '$2a$10$PzUVO/510BcY7LtZiRV/.uXMRGXiFJuiO0gtfwrB9J5NJoRieabn6'),
 (2, 2, 'organizador@example.com', 'org123'),
 (3, 2, 'student1@example.com', 'stud123'),
 (4, 2, 'student2@example.com', 'stud123'),
@@ -19,16 +19,16 @@ INSERT INTO users (id, role_id, email, password) VALUES
 
 
 INSERT INTO students (id, user_id, first_name, last_name, career, created_at, updated_at) VALUES
-(1, 3, 'Juan', 'Pérez', 'Ingeniería', '2023-01-15', '2024-04-10'),
-(2, 4, 'María', 'López', 'Medicina', '2023-02-18', NULL),
-(3, 5, 'Carlos', 'Gómez', 'Derecho', '2022-11-25', '2024-03-12'),
-(4, 6, 'Ana', 'Martínez', 'Psicología', '2023-05-30', NULL),
-(5, 7, 'Luis', 'Sánchez', 'Administración', '2022-09-08', '2024-06-19'),
-(6, 8, 'Carmen', 'Díaz', 'Arquitectura', '2023-03-10', '2023-10-05'),
-(7, 9, 'José', 'Fernández', 'Economía', '2023-01-05', NULL),
-(8, 10, 'Lucía', 'Torres', 'Diseño', '2023-07-14', '2024-01-20'),
-(9, 11, 'Pedro', 'Ramírez', 'Computación', '2023-06-22', NULL),
-(10, 12, 'Elena', 'Vega', 'Ciencias Sociales', '2023-04-02', '2024-02-17');
+(1, 1, 'Technova', 'Student', 'Admin', '2024-10-20 14:13:31.168949', '2024-04-10'),
+(2, 4, 'María', 'López', 'Medicina', '2023-02-18 14:10:31.168949', NULL),
+(3, 5, 'Carlos', 'Gómez', 'Derecho', '2022-11-25 11:13:31.168949', '2024-03-12'),
+(4, 6, 'Ana', 'Martínez', 'Psicología', '2023-05-30 13:13:31.168949', NULL),
+(5, 7, 'Luis', 'Sánchez', 'Administración', '2022-09-08 15:13:31.168949', '2024-06-19 14:13:31.168949'),
+(6, 8, 'Carmen', 'Díaz', 'Arquitectura', '2023-03-10 14:14:39.168949', '2023-10-05 14:13:31.168949'),
+(7, 9, 'José', 'Fernández', 'Economía', '2023-01-05 10:13:31.168949', NULL),
+(8, 10, 'Lucía', 'Torres', 'Diseño', '2023-07-14 14:17:31.168949', '2024-01-20 14:13:31.168949'),
+(9, 11, 'Pedro', 'Ramírez', 'Computación', '2023-06-22 14:11:30.168949', NULL),
+(10, 12, 'Elena', 'Vega', 'Ciencias Sociales', '2023-04-02 14:19:31.168949', '2024-02-17 14:13:31.168949');
 
 
 INSERT INTO locations (id, city, country, location) VALUES
