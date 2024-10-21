@@ -1,5 +1,6 @@
 package com.technova.campussphereapi.model.entity;
 
+import com.technova.campussphereapi.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
@@ -29,4 +30,7 @@ public class Student {
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
