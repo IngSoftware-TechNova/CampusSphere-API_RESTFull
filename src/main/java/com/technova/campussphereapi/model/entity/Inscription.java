@@ -23,7 +23,7 @@ public class Inscription {
 
     @ManyToOne
     @JoinColumn(name = "event_id", referencedColumnName = "id",
-            foreignKey = @ForeignKey(name = "fk_inscription_events"))
+    foreignKey = @ForeignKey(name = "fk_inscription_events"))
     private Event event;
 
     @ManyToOne

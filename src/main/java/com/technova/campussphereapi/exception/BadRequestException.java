@@ -1,12 +1,11 @@
 package com.technova.campussphereapi.exception;
 
-public class BadRequestException extends RuntimeException {
+public class BadRequestException extends RuntimeException{
+    public BadRequestException() {
+        super();
+    }
 
-  public BadRequestException() {
-    super();
-  }
-
-  public BadRequestException(String message) {
-    super(message);
-  }
+    public BadRequestException(String message) {
+        super(message);
+    }
 }
