@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface EventRepository extends JpaRepository<Event, Integer> {
 
     Optional<Event> findByNameAndDescription(String name, String description);
-    //List<Event> findTop7ByOrderByPriceAtDesc();
+    List<Event> findTop8ByOrderByCreatedAtDesc();
 }

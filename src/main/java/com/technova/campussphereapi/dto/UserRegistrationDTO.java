@@ -7,21 +7,22 @@ import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
-public class StudentRegistrationDTO {
-    private Integer id;
+public class UserRegistrationDTO {
 
     @NotBlank(message = "El nombre es obligatorio")
-    private String name;
+    private String firstName;
+
+    @NotBlank(message = "El apellido es obligatorio")
+    private String lastName;
 
     @Email(message = "El correo electrónico no es válido")
     @NotBlank(message = "El correo electrónico es obligatorio")
     private String email;
 
-    @NotBlank(message = "La carrera es obligatorio")
-    private String career;
-
     @NotNull(message = "La contraseña es obligatoria")
     @Size(min = 4, message = "La contraseña debe tener al menos 9 caracteres")
     private String password;
 
+
+    private String career;
 }

@@ -15,7 +15,6 @@ public class InscriptionCreateUpdateDTO {
 
     @NotNull(message = "El evento es obligatorio")
     private Integer eventId;
-    @NotNull(message = "El estudiante es obligatorio")
-    private Integer studentId;
-
+    @NotNull(message = "El usuario es obligatorio")
+    private Integer userId;
 }

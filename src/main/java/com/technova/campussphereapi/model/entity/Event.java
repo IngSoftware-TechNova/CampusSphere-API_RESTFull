@@ -3,6 +3,8 @@ package com.technova.campussphereapi.model.entity;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @Table(name = "events")
@@ -20,10 +22,15 @@ public class Event {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
     @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_event_categories"))
-
     private Category category;
 
     @ManyToOne
