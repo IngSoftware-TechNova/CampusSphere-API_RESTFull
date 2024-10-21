@@ -17,6 +17,8 @@ import com.technova.campussphereapi.service.EventService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -72,6 +74,7 @@ public class EventServiceImpl implements EventService {
         event.setCategory(category);
         event.setLocation(location);
         event.setPrice(price);
+        event.setCreatedAt(LocalDateTime.now());
 
         return eventMapper.toDetailsDTO(eventRepository.save(event));
     }
@@ -105,6 +108,7 @@ public class EventServiceImpl implements EventService {
         eventFromDB.setLocation(location);
         eventFromDB.setCategory(category);
         eventFromDB.setPrice(price);
+        eventFromDB.setUpdatedAt(LocalDateTime.now());
 
         return  eventMapper.toDetailsDTO(eventRepository.save(eventFromDB));
     }
@@ -115,6 +119,14 @@ public class EventServiceImpl implements EventService {
         Event event = eventRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Evento non existente con id: " + id));
         eventRepository.delete(event);
+    }
+
+    @Override
+    public List<EventDetailsDTO> findTop8EventsByCreatedAt() {
+        return eventRepository.findTop8ByOrderByCreatedAtDesc()
+                .stream()
+                .map(eventMapper::toDetailsDTO)
+                .toList();
     }
 
 }

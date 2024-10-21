@@ -5,12 +5,15 @@ import com.technova.campussphereapi.service.StudentEventInterestService;
 import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/student-event-interest")
+@PreAuthorize("hasRole('STUDENT')") // Permitir solo a Student
+
 public class StudentEventInterestController {
     private final StudentEventInterestService studentEventInterestService;
 

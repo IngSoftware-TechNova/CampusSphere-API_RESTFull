@@ -1,10 +1,9 @@
 package com.technova.campussphereapi.service.impl;
 
-import com.technova.campussphereapi.dto.StudentProfileDTO;
-import com.technova.campussphereapi.dto.StudentRegistrationDTO;
+import com.technova.campussphereapi.dto.UserProfileDTO;
+import com.technova.campussphereapi.dto.UserRegistrationDTO;
 import com.technova.campussphereapi.exception.BadRequestException;
 import com.technova.campussphereapi.exception.ResourceNotFoundException;
-import com.technova.campussphereapi.mapper.EventMapper;
 import com.technova.campussphereapi.mapper.StudentMapper;
 import com.technova.campussphereapi.model.entity.Student;
 import com.technova.campussphereapi.repository.StudentRepository;
@@ -22,13 +21,13 @@ public class StudentServiceImpl implements StudentService {
 
     @Transactional
     @Override
-    public StudentRegistrationDTO create(StudentRegistrationDTO studentRegistrationDTO) {
-        studentRepository.findByEmail(studentRegistrationDTO.getEmail())
+    public UserRegistrationDTO create(UserRegistrationDTO userRegistrationDTO) {
+        studentRepository.findByFirstNameAndLastName(userRegistrationDTO.getFirstName(), userRegistrationDTO.getLastName())
                 .ifPresent(existingStudent ->{
-                    throw new BadRequestException("El autor ya existe con el mismo email");
+                    throw new BadRequestException("El estudiante ya existe con el mismo nombre y apellido");
                 });
 
-        Student student = studentMapper.toEntity(studentRegistrationDTO);
+        Student student = studentMapper.toEntity(userRegistrationDTO);
         student.setCreatedAt(LocalDateTime.now());
         student = studentRepository.save(student);
         return studentMapper.toDTO(student);
@@ -38,7 +37,7 @@ public class StudentServiceImpl implements StudentService {
     //Busqueda por id del estudiante
     @Transactional
     @Override
-    public StudentProfileDTO findById(Integer id) {
+    public UserProfileDTO findById(Integer id) {
         Student student = studentRepository.findById(id)
                 .orElseThrow(()-> new ResourceNotFoundException("El estudiante con ID "+id+" no fue encontrado"));
         return studentMapper.toDTOs(student);
@@ -46,22 +45,22 @@ public class StudentServiceImpl implements StudentService {
 
     @Transactional
     @Override
-    public StudentRegistrationDTO update(Integer id, StudentRegistrationDTO studentRegistrationDTO) {
+    public UserRegistrationDTO update(Integer id, UserRegistrationDTO userRegistrationDTO) {
         Student studentFromDB = studentRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("El estudiante con ID " + id + " no fue encontrado"));
 
 
-        studentRepository.findByEmail(studentRegistrationDTO.getEmail())
+        studentRepository.findByFirstNameAndLastName(userRegistrationDTO.getFirstName(), userRegistrationDTO.getLastName())
                 .filter(existingAuthor -> !existingAuthor.getId().equals(id))
                 .ifPresent(existingAuthor -> {
                     throw new BadRequestException("Ya existe un autor con el mismo nombre y apellido");
                 });
 
         // Actualizar los campos
-        studentFromDB.setName(studentRegistrationDTO.getName());
-        studentFromDB.setEmail(studentRegistrationDTO.getEmail());
+        studentFromDB.setFirstName(userRegistrationDTO.getFirstName());
+        studentFromDB.setLastName(userRegistrationDTO.getLastName());
         studentFromDB.setUpdatedAt(LocalDateTime.now());
-        studentFromDB.setCareer(studentRegistrationDTO.getCareer());
+        studentFromDB.setCareer(userRegistrationDTO.getCareer());
         studentFromDB.setCreatedAt(LocalDateTime.now());
 
         studentFromDB = studentRepository.save(studentFromDB);

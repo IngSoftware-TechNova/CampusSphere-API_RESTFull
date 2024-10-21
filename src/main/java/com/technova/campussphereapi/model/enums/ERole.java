@@ -1,5 +1,6 @@
 package com.technova.campussphereapi.model.enums;
 
-public enum Roles {,
-
+public enum ERole {
+    ADMIN,
+    STUDENT
 }

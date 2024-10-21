@@ -9,10 +9,12 @@ import com.technova.campussphereapi.mapper.InscriptionMapper;
 import com.technova.campussphereapi.model.entity.Event;
 import com.technova.campussphereapi.model.entity.Student;
 import com.technova.campussphereapi.model.entity.Inscription;
+import com.technova.campussphereapi.model.entity.User;
 import com.technova.campussphereapi.model.enums.InscriptionStatus;
 import com.technova.campussphereapi.repository.StudentRepository;
 import com.technova.campussphereapi.repository.EventRepository;
 import com.technova.campussphereapi.repository.InscriptionRepository;
+import com.technova.campussphereapi.repository.UserRepository;
 import com.technova.campussphereapi.service.InscriptionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -28,32 +30,38 @@ public class InscriptionServiceImpl implements InscriptionService {
     private final InscriptionRepository inscriptionRepository;
     private final EventRepository eventRepository;
     private final StudentRepository studentRepository;
+    private final UserRepository userRepository;
     private final InscriptionMapper inscriptionMapper;
 
     @Transactional
     @Override
     public InscriptionDetailsDTO create(InscriptionCreateUpdateDTO inscriptionCreateUpdateDTO) {
+        // Convertir el DTO en una entidad Inscription
+        Inscription inscription = inscriptionMapper.toEntity(inscriptionCreateUpdateDTO);
 
-        //inscriptionRepository.findByEventAndStudent(inscriptionCreateUpdateDTO.getEventId(), inscriptionCreateUpdateDTO.getStudentId())
-        //        .ifPresent(student -> {
-        //            throw new BadRequestException("Ya esta inscrito");
-        //        });
+        // Verificar si el estudiante existe en la base de datos
+        User user = userRepository.findById(inscriptionCreateUpdateDTO.getUserId())
+                .orElseThrow(()-> new ResourceNotFoundException("User not found with ID: " + inscriptionCreateUpdateDTO.getUserId()));
 
         // Asigna los atributos necesarios antes de guardar
         Event event = eventRepository.findById(inscriptionCreateUpdateDTO.getEventId())
                 .orElseThrow(() -> new ResourceNotFoundException("Evento not found with id: " + inscriptionCreateUpdateDTO.getEventId()));
 
-        Student student = studentRepository.findById(inscriptionCreateUpdateDTO.getStudentId())
-                .orElseThrow(() -> new ResourceNotFoundException("Estudiante not found with id: " + inscriptionCreateUpdateDTO.getStudentId()));
-
-        Inscription inscription = inscriptionMapper.toEntity(inscriptionCreateUpdateDTO);
+        inscriptionRepository.findByEventAndUser(event, user)
+                .ifPresent(inscription1 -> {
+                    throw new BadRequestException("Ya esta inscrito");
+                });
 
         inscription.setEvent(event);
-        inscription.setStudent(student);
+        inscription.setUser(user);
         inscription.setInscriptionDate(LocalDateTime.now());
         inscription.setInscriptionStatus(InscriptionStatus.PENDING);
 
-        return inscriptionMapper.toDetailsDTO(inscriptionRepository.save(inscription));
+        // Guardar la inscripcion
+        Inscription savedInscription = inscriptionRepository.save(inscription);
+
+        // Retornar el DTO mapeado
+        return inscriptionMapper.toDetailsDTO(savedInscription);
     }
 
     @Transactional(readOnly = true)

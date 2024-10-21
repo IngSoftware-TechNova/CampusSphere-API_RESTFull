@@ -8,6 +8,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,6 +16,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin/events")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('ADMIN')") // Aplicar la restriccion a nivel de clase
+//@PreAuthorize("hasAnyRole('ADMIN','WORKER')") // Permitir a admin y worker si es que hubiera uno
+
 public class EventController {
 
     private final EventService eventService;

@@ -12,5 +12,7 @@ public interface EventService {
     EventDetailsDTO create(EventCreateUpdateDTO eventCreateDTO);
     EventDetailsDTO update(Integer id, EventCreateUpdateDTO eventUpdateDTO);
     void delete(Integer id);
+
+    List<EventDetailsDTO> findTop8EventsByCreatedAt();
 }
 

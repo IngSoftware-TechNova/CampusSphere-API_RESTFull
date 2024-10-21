@@ -1,11 +1,11 @@
 package com.technova.campussphereapi.service;
 
-import com.technova.campussphereapi.dto.StudentProfileDTO;
-import com.technova.campussphereapi.dto.StudentRegistrationDTO;
+import com.technova.campussphereapi.dto.UserProfileDTO;
+import com.technova.campussphereapi.dto.UserRegistrationDTO;
 
 public interface StudentService {
-   StudentRegistrationDTO create(StudentRegistrationDTO studentDTO);
-   StudentProfileDTO findById(Integer id);
-   StudentRegistrationDTO update(Integer id, StudentRegistrationDTO updateStudentDTO);
+   UserRegistrationDTO create(UserRegistrationDTO studentDTO);
+   UserProfileDTO findById(Integer id);
+   UserRegistrationDTO update(Integer id, UserRegistrationDTO updateStudentDTO);
    void delete(Integer id);
 }
