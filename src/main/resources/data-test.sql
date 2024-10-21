@@ -1,4 +1,5 @@
 /*
+
 INSERT INTO roles (id, name) VALUES
 (1, 'ADMIN'),
 (2, 'STUDENT');
@@ -108,9 +109,32 @@ INSERT INTO ratings (id, rate, event_id, student_id, created_at, updated_at) VAL
 (9, 5, 9, 9, '2024-04-22', NULL),
 (10, 4, 10, 10, '2024-04-23', '2024-04-24');
 
+INSERT INTO students (id, career, email, name,  password) VALUES
+                                                                                         (1, 'John Doe', 'john.doe@example.com', 'Computer Science', 'password123'),
+                                                                                         (2, 'Jane Smith', 'jane.smith@example.com', 'Engineering', 'password123'),
+                                                                                         (3, 'Robert Brown', 'robert.brown@example.com', 'Mathematics', 'password123');
+
+*/
+/*
+INSERT INTO locations (id, location, city, country) VALUES
+                                                        (1, 'Main Hall', 'New York', 'USA'),
+                                                        (2, 'Innovation Lab', 'San Francisco', 'USA'),
+                                                        (3, 'Tech Building', 'Boston', 'USA');
+INSERT INTO categories (id, name) VALUES
+                                      (4, 'Technology'),
+                                      (2, 'Programming'),
+                                      (3, 'Data Science');
+
+*/
+/*
+INSERT INTO prices (id, description,price) VALUES
+                                             (1, 'General Admission', 100.00),
+                                             (2, 'Student Admission', 50.00),
+                                             (3, 'Free Admission', 0.00);
 
 
-  */
+
+*/
 /*
 INSERT INTO student_event_interests (id_event_interest, id_student_interest) VALUES
                                                                               (1, 1),
@@ -121,7 +145,10 @@ INSERT INTO student_event_interests (id_event_interest, id_student_interest) VAL
 
 
 /*
--- Añadir datos a la tabla schedules
+-- Añadir datos a la tabla schedules*/
+
+*/
+/*
 INSERT INTO schedules (id, start_hour, end_hour, description) VALUES
 (1, '09:00', '11:00', 'Primera sesión'),
 (2, '11:00', '13:00', 'Segunda sesión'),
@@ -135,6 +162,49 @@ INSERT INTO schedules (id, start_hour, end_hour, description) VALUES
 (10, '17:00', '19:00', 'Networking');
 
  */
+/*
+INSERT INTO categories (name) VALUES ('Tecnología');
+INSERT INTO categories (name) VALUES ('Ciencia');
+INSERT INTO categories (name) VALUES ('Arte');
+INSERT INTO categories (name) VALUES ('Literatura');
+INSERT INTO categories (name) VALUES ('Deportes');
+*/
+    /*
+-- Añadir datos a la tabla ubicaciones
+INSERT INTO locations (id, location, city, country) VALUES
+                                                        (1, '123 Calle Falsa', 'Lima', 'Perú'),
+                                                        (2, '456 Avenida Siempreviva', 'Arequipa', 'Perú'),
+                                                        (3, '789 Calle Pino', 'Cusco', 'Perú');
+
+-- Añadir datos a la tabla categorias
+INSERT INTO categories (id, name) VALUES
+                                       (1, 'Deportes'),
+                                       (2, 'Música'),
+                                       (3, 'Tecnología');
+
+-- Añadir datos a la tabla tarifarios
+INSERT INTO prices (id, price, description) VALUES
+                                                    (1, 50.00, 'Precio general para eventos deportivos'),
+                                                    (2, 100.00, 'Precio para conciertos y eventos musicales'),
+                                                    (3, 150.00, 'Eventos tecnológicos de alto perfil');
+*/
+-- Añadir datos a la tabla estudiantes
+/*INSERT INTO students (id, nombre, email, carrera, contraseña) VALUES
+                                                                    (1, 'Carlos Pérez', 'cperez@mail.com', 'Ingeniería de Sistemas', '12345'),
+                                                                    (2, 'Ana López', 'alopez@mail.com', 'Administración', '54321'),
+                                                                    (3, 'José Torres', 'jtorres@mail.com', 'Marketing', 'password');
+
+
+*/
+/*
+-- Añadir datos a la tabla eventos
+INSERT INTO events (id, name, capacity, description, location_id, category_id, price_id) VALUES
+                                                                                                       (1, 'Maratón de Lima', 500, 'Competencia anual de maratón', 1, 1, 1),
+                                                                                                       (2, 'Concierto RockFest', 300, 'Concierto de bandas de rock', 2, 2, 2),
+                                                                                                       (3, 'Tech Conference 2024', 200, 'Conferencia sobre avances en tecnología', 3, 3, 3);
+
+*/
+/*
 funcion de postgre
 CREATE OR REPLACE FUNCTION fn_list_inscriptions_per_event_report()
 RETURNS TABLE(
