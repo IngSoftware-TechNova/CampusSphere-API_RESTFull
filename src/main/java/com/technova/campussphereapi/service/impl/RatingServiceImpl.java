@@ -10,9 +10,11 @@ import com.technova.campussphereapi.mapper.RatingMapper;
 import com.technova.campussphereapi.model.entity.Event;
 import com.technova.campussphereapi.model.entity.Rating;
 import com.technova.campussphereapi.model.entity.Student;
+import com.technova.campussphereapi.model.entity.User;
 import com.technova.campussphereapi.repository.EventRepository;
 import com.technova.campussphereapi.repository.RatingRepository;
 import com.technova.campussphereapi.repository.StudentRepository;
+import com.technova.campussphereapi.repository.UserRepository;
 import com.technova.campussphereapi.service.RatingService;
 import lombok.RequiredArgsConstructor;
 
@@ -33,11 +35,12 @@ public class RatingServiceImpl implements RatingService {
     private final RatingMapper ratingMapper;
     private final EventRepository eventRepository;
     private final StudentRepository studentRepository;
+    private final UserRepository userRepository;
 
     @Transactional(readOnly = true)
     @Override
     public List<PuntuacionReportDTO> getRateReportByDate() {
-        List<Object[]> results = ratingRepository.getPuntuacionReportByDate();
+        List<Object[]> results = ratingRepository.getRatingReportByDate();
         //Mapeo de la lista de objetos a una lista de PuntuacionDTO
         List<PuntuacionReportDTO> PuntuacionReportDTOS = results.stream()
                 .map(result ->
@@ -68,7 +71,7 @@ public class RatingServiceImpl implements RatingService {
     @Override
     public RatingDetailsDTO create(RatingCreateUpdateDTO ratingCreateUpdateDTO) {
 
-        ratingRepository.findByEventIdAndStudentId(ratingCreateUpdateDTO.getEventId(), ratingCreateUpdateDTO.getStudentId())
+        ratingRepository.findByEventIdAndUserId(ratingCreateUpdateDTO.getEventId(), ratingCreateUpdateDTO.getUserId())
                 .ifPresent(student -> {
                     throw new BadRequestException("Ya haz calificado");
                 });
@@ -76,10 +79,8 @@ public class RatingServiceImpl implements RatingService {
         Event event = eventRepository.findById(ratingCreateUpdateDTO.getEventId())
                 .orElseThrow(()->new ResourceNotFoundException("Event not found with id: " + ratingCreateUpdateDTO.getEventId()));
 
-        Student student = studentRepository.findById(ratingCreateUpdateDTO.getStudentId())
-                .orElseThrow(()->new ResourceNotFoundException("Student not found with id: " + ratingCreateUpdateDTO.getStudentId()));
-
-        Rating rating = ratingMapper.toEntity(ratingCreateUpdateDTO);
+        User user = userRepository.findById(ratingCreateUpdateDTO.getUserId())
+                .orElseThrow(()->new ResourceNotFoundException("User not found with id: " + ratingCreateUpdateDTO.getUserId()));
 
         if (ratingCreateUpdateDTO.getRate() < 1 || ratingCreateUpdateDTO.getRate() > 5) {
             throw new BadRequestException("La puntuacion debe estar entre 1 y 5");
@@ -88,7 +89,7 @@ public class RatingServiceImpl implements RatingService {
         Rating rate = ratingMapper.toEntity(ratingCreateUpdateDTO);
 
         rate.setEvent(event);
-        rate.setStudent(student);
+        rate.setUser(user);
         rate.setCreated_at(LocalDateTime.now());
         rate.setRate(ratingCreateUpdateDTO.getRate());
 
@@ -107,7 +108,7 @@ public class RatingServiceImpl implements RatingService {
                     throw new BadRequestException("La puntuacion ya existe");
                 });
 
-        ratingRepository.findByEventIdAndStudentId(updateRate.getEventId(), updateRate.getStudentId())
+        ratingRepository.findByEventIdAndUserId(updateRate.getEventId(), updateRate.getUserId())
                 .filter(existingPuntuacion -> !existingPuntuacion.getId().equals(id))
                 .ifPresent(existingPuntuacion -> {
                     throw new RuntimeException("La puntuacion ya existe para este evento y estudiante");
@@ -116,12 +117,12 @@ public class RatingServiceImpl implements RatingService {
         Event event = eventRepository.findById(updateRate.getEventId())
                 .orElseThrow(()->new ResourceNotFoundException("Event not found with id: " + updateRate.getEventId()));
 
-        Student student = studentRepository.findById(updateRate.getStudentId())
-                .orElseThrow(()->new ResourceNotFoundException("Student not found with id: " + updateRate.getStudentId()));
+        User user = userRepository.findById(updateRate.getUserId())
+                .orElseThrow(()->new ResourceNotFoundException("User not found with id: " + updateRate.getUserId()));
 
         //Actualizar los campos
         ratingFromDb.setEvent(event);
-        ratingFromDb.setStudent(student);
+        ratingFromDb.setUser(user);
         ratingFromDb.setUpdated_at(LocalDateTime.now());
         ratingFromDb.setRate(updateRate.getRate());
 

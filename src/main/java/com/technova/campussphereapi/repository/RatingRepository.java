@@ -12,8 +12,8 @@ import java.util.Optional;
 public interface RatingRepository extends JpaRepository<Rating, Integer> {
 
     Optional<Rating> findByRate(Integer rating);
-        Optional<Rating> findByEventIdAndStudentId(Integer eventId, Integer studentId);
+        Optional<Rating> findByEventIdAndUserId(Integer eventId, Integer userId);
 
     @Query(value = "SELECT * FROM fn_list_puntuaciones_report() ", nativeQuery = true)
-    List<Object[]> getPuntuacionReportByDate();
+    List<Object[]> getRatingReportByDate();
 }

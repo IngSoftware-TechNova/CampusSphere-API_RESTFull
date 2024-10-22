@@ -20,7 +20,7 @@ public class RatingMapper {
         RatingDetailsDTO ratingDetailsDTO = modelMapper.map(rating, RatingDetailsDTO.class);
 
         ratingDetailsDTO.setEventName(rating.getEvent().getName());
-        ratingDetailsDTO.setStudentName(rating.getStudent().getName());
+        ratingDetailsDTO.setStudentName(rating.getUser().getStudent().getFirstName() + " " + rating.getUser().getStudent().getLastName());
 
         return ratingDetailsDTO;
     }

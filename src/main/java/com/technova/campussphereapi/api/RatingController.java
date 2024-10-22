@@ -6,11 +6,9 @@ import com.technova.campussphereapi.model.entity.Rating;
 import com.technova.campussphereapi.service.RatingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,12 +16,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/ratings")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('STUDENT')") // Permitir solo a Student
 public class RatingController {
 
     private final RatingService ratingService;
 
     @GetMapping("/report")
-    public ResponseEntity<List<PuntuacionReportDTO>> getPuntuacionReport(){
+    public ResponseEntity<List<PuntuacionReportDTO>> getRatingReport(){
         List<PuntuacionReportDTO> reports = ratingService.getRateReportByDate();
         return ResponseEntity.ok(reports);
     }

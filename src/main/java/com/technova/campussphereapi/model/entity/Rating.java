@@ -29,7 +29,7 @@ public class Rating {
     private Event event;
 
     @ManyToOne
-    @JoinColumn(name = "student_id", referencedColumnName = "id",
-            foreignKey = @ForeignKey(name = "fk_rating_students"))
-    private Student student;
+    @JoinColumn(name = "user_id", referencedColumnName = "id",
+            foreignKey = @ForeignKey(name = "fk_rating_user"))
+    private User user;
 }
