@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
+    <title>Confirmacion de Inscripcion</title>
+</head>
+<body>
+<table role="presentation">
+    <tr>
+        <td>&nbsp;</td>
+        <td>
+            <div>
+
+                <!-- Header -->
+                <h1>¡Gracias por inscribirte en nuestro evento!</h1>
+                <p>Hola, <span th:text="${user}"></span></p>
+                <p>Tu inscripcion ha sido confirmada. Aqui tienes los detalles del evento:</p>
+
+                <!-- Order Details -->
+                <p><strong>Costo:</strong> S/.<span th:text="${total}"></span></p>
+
+                <!-- Button to view inscription -->
+                <div>
+                    <a th:href="${eventUrl}">Ver Detalles del Evento</a>
+                </div>
+
+                <p>Gracias por apoyarnos con tu inscripcion. Esperemos que la pases de maravilla en el evento.</p>
+                <p>Atentamente, <br/> El equipo de CampusSphere</p>
+
+                <!-- Footer -->
+                <div>
+                    <p>Lima, Peru</p>
+                    <p>
+                        <a href="http://htmlemail.io">© 2024 CampusSphere</a>.
+                    </p>
+                </div>
+
+            </div>
+        </td>
+    </tr>
+</table>
+</body>
+</html>

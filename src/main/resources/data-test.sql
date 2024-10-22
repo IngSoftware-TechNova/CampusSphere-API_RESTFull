@@ -1,5 +1,4 @@
 /*
-
 INSERT INTO roles (id, name) VALUES
 (1, 'ADMIN'),
 (2, 'STUDENT');
@@ -57,8 +56,6 @@ INSERT INTO categories (id, name) VALUES
 (9, 'Exposición'),
 (10, 'Feria');
 
- */
- /*
 INSERT INTO prices (id, price, description) VALUES
 (1, 0.00, 'Gratuito'),
 (2, 10.00, 'Entrada Estándar'),
@@ -96,6 +93,8 @@ INSERT INTO events (id, name, description, capacity, category_id, location_id, p
 (10, 'Football Match', 'Local teams competing', 10000, 4, 10, 10, NOW());
 
 
+ */
+/*
 INSERT INTO inscriptions (id, event_id, user_id, inscription_date, inscription_status) VALUES
 (1, 1, 3, NOW(), 'PAID'),
 (2, 2, 4, NOW(), 'PENDING'),
@@ -104,9 +103,7 @@ INSERT INTO inscriptions (id, event_id, user_id, inscription_date, inscription_s
 (5, 5, 7, NOW(), 'PENDING'),
 (6, 6, 8, NOW(), 'PAID'),
 (7, 7, 9, NOW(), 'PENDING'),
-(8, 8, 10, NOW(), 'PAID'),
-(9, 9, 11, NOW(), 'PENDING'),
-(10, 10, 12, NOW(), 'PAID');
+(8, 8, 10, NOW(), 'PAID');
 
 INSERT INTO ratings (id, rate, event_id, user_id, created_at) VALUES
 (1, 5, 1, 2, NOW()),
@@ -120,14 +117,16 @@ INSERT INTO ratings (id, rate, event_id, user_id, created_at) VALUES
 (9, 5, 9, 9, NOW()),
 (10, 4, 10, 10, NOW());
 
-*/
-/*
+
+
 INSERT INTO student_event_interests (id_event_interest, id_student_interest) VALUES
                                                                               (1, 1),
                                                                               (2, 1),
                                                                               (1, 2),
                                                                               (3, 2),
                                                                               (3, 3);
+
+
 
  */
 

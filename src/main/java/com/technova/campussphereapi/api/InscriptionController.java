@@ -4,6 +4,7 @@ import com.technova.campussphereapi.dto.InscriptionCreateUpdateDTO;
 import com.technova.campussphereapi.dto.InscriptionDetailsDTO;
 import com.technova.campussphereapi.dto.InscriptionReportDTO;
 import com.technova.campussphereapi.service.InscriptionService;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,7 +24,7 @@ public class InscriptionController {
     private final InscriptionService inscriptionService;
 
     @PostMapping
-    public ResponseEntity<InscriptionDetailsDTO> create(@Valid @RequestBody InscriptionCreateUpdateDTO inscription) {
+    public ResponseEntity<InscriptionDetailsDTO> create(@Valid @RequestBody InscriptionCreateUpdateDTO inscription) throws MessagingException {
         InscriptionDetailsDTO newInscription = inscriptionService.create(inscription);
         return new ResponseEntity<>(newInscription, HttpStatus.CREATED);
     }

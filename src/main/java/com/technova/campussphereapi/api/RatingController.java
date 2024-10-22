@@ -4,6 +4,7 @@ import com.technova.campussphereapi.dto.RatingCreateUpdateDTO;
 import com.technova.campussphereapi.dto.RatingDetailsDTO;
 import com.technova.campussphereapi.model.entity.Rating;
 import com.technova.campussphereapi.service.RatingService;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -40,7 +41,7 @@ public class RatingController {
     }
 
     @PostMapping
-    public ResponseEntity<RatingDetailsDTO> create(@Valid @RequestBody RatingCreateUpdateDTO rating){
+    public ResponseEntity<RatingDetailsDTO> create(@Valid @RequestBody RatingCreateUpdateDTO rating) throws MessagingException {
         RatingDetailsDTO newRating = ratingService.create(rating);
         return new ResponseEntity<>(newRating, HttpStatus.CREATED);
     }
