@@ -3,6 +3,7 @@ package com.technova.campussphereapi.api;
 import com.technova.campussphereapi.dto.PaymentCaptureResponse;
 import com.technova.campussphereapi.dto.PaymentOrderResponse;
 import com.technova.campussphereapi.service.CheckoutService;
+import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,21 +21,21 @@ public class CheckoutController {
     private final CheckoutService checkoutService;
 
     @PostMapping("/create")
-    public ResponseEntity<PaymentOrderResponse> createPaymentOrder(
+    public ResponseEntity<PaymentOrderResponse> createPaymentOrder (
             @RequestParam Integer inscriptionId,
             @RequestParam String returnUrl,
             @RequestParam String cancelUrl,
             @RequestParam(required = false, defaultValue = "paypal") String paymentProvider
-    ) {
+    ) throws MessagingException {
         PaymentOrderResponse response = checkoutService.createPayment(inscriptionId, returnUrl, cancelUrl);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 
     @PostMapping("/capture")
-    public ResponseEntity<PaymentCaptureResponse> capturePaymentOrder(
+    public ResponseEntity<PaymentCaptureResponse> capturePaymentOrder (
             @RequestParam String orderId,
             @RequestParam(required = false, defaultValue = "paypal") String paymentProvider
-    ){
+    ) throws MessagingException {
         PaymentCaptureResponse response = checkoutService.capturePayment(orderId);
 
         if (response.isCompleted()) {

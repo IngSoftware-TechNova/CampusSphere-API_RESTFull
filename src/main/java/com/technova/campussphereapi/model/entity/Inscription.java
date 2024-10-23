@@ -34,6 +34,7 @@ public class Inscription {
     private User user;
 
     @OneToMany(mappedBy = "inscription", cascade = CascadeType.ALL)
+    @Column(name = "events_id")
     private List<InscriptionItem> items;
 
 }

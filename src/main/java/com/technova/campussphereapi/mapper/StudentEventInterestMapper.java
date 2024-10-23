@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 public class StudentEventInterestMapper {
     private final ModelMapper modelMapper;
     public StudentEventInterestMapper(ModelMapper modelMapper) {
+
         this.modelMapper = modelMapper;
     }
 

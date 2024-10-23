@@ -40,11 +40,6 @@ public class InscriptionServiceImpl implements InscriptionService {
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
     private final InscriptionMapper inscriptionMapper;
-    private final EventMapper eventMapper;
-    private final EmailService emailService;
-
-    @Value("${spring.mail.username}")
-    private String mailFrom;
 
     @Transactional
     @Override
@@ -55,6 +50,7 @@ public class InscriptionServiceImpl implements InscriptionService {
         // Verificar si el cliente existe en la base de datos
         /*User user = userRepository.findById(purchaseDTO.getCustomerId())
                 .orElseThrow(() -> new ResourceNotFoundException("Customer not found with ID: " + purchaseDTO.getCustomerId()));*/
+
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = null;
 
@@ -76,6 +72,7 @@ public class InscriptionServiceImpl implements InscriptionService {
         });
 
 
+        //Event event = eventRepository.findById(inscriptionDTO.getItems().getFirst().getEventId()).orElseThrow(()->new RuntimeException("Event not found with ID: " + inscriptionDTO.getEventId()));
 
         // Establecer la fecha de creación y estado de pago
         inscription.setInscriptionDate(LocalDateTime.now());
@@ -93,10 +90,10 @@ public class InscriptionServiceImpl implements InscriptionService {
         Inscription savedInscription = inscriptionRepository.save(inscription);
 
         // Convertimos el evento a su dto
-        EventDetailsDTO eventDetailsDTO = eventMapper.toDetailsDTO(event);
+        //EventDetailsDTO eventDetailsDTO = eventMapper.toDetailsDTO(event);
 
         // Enviamos el email de confirmacion
-        sendInscriptionConfirmationEmail(eventDetailsDTO);
+        //sendInscriptionConfirmationEmail(eventDetailsDTO);
 
         // Retornar el DTO mapeado
         return inscriptionMapper.toInscriptionDTO(savedInscription);
@@ -182,26 +179,6 @@ public class InscriptionServiceImpl implements InscriptionService {
                         .orElseThrow(() -> new ResourceNotFoundException("Inscription not found with eventId: " + eventId + " and mail: " + userEmail));
 
         inscriptionRepository.delete(inscription);
-    }
-
-    private void sendInscriptionConfirmationEmail(EventDetailsDTO eventDetailsDTO) throws MessagingException {
-
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String userEmail = authentication.getName();
-
-        Map<String, Object> model = new HashMap<>();
-        model.put("user", userEmail);
-        model.put("total", eventDetailsDTO.getPriceValue());
-        model.put("eventUrl", "http://localhost:4200/inscription/" + eventDetailsDTO.getId());
-
-        Mail mail = emailService.createMail(
-                userEmail,
-                "Confirmacion de Inscripcion",
-                model,
-                mailFrom
-        );
-        emailService.sendMail(mail, "email/inscription-confirmation-template");
-
     }
 
 }

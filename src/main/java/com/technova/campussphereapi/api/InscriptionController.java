@@ -23,7 +23,7 @@ public class InscriptionController {
     private final InscriptionService inscriptionService;
 
     @PostMapping
-    public ResponseEntity<InscriptionDetailsDTO> create(@Valid @RequestBody InscriptionCreateUpdateDTO inscription) throws MessagingException {
+    public ResponseEntity<InscriptionDetailsDTO> create(@RequestBody InscriptionCreateUpdateDTO inscription) throws MessagingException {
 
         InscriptionDetailsDTO newInscription = inscriptionService.create(inscription);
         return new ResponseEntity<>(newInscription, HttpStatus.CREATED);

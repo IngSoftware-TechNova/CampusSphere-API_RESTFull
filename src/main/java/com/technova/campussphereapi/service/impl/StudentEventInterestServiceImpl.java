@@ -5,6 +5,7 @@ import com.technova.campussphereapi.mapper.StudentEventInterestMapper;
 import com.technova.campussphereapi.model.entity.StudentEventInterest;
 import com.technova.campussphereapi.repository.StudentEventInterestRepository;
 import com.technova.campussphereapi.service.StudentEventInterestService;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 public class StudentEventInterestServiceImpl implements StudentEventInterestService {
     private final StudentEventInterestRepository studentEventInterestRepository;
     private final StudentEventInterestMapper studentEventInterestMapper;
+
     public StudentEventInterestServiceImpl(StudentEventInterestRepository studentEventInterestRepository, StudentEventInterestMapper studentEventInterestMapper) {
         this.studentEventInterestRepository = studentEventInterestRepository;
         this.studentEventInterestMapper = studentEventInterestMapper;
@@ -24,7 +26,7 @@ public class StudentEventInterestServiceImpl implements StudentEventInterestServ
     @Override
     public StudentEventInterestDTO create(StudentEventInterestDTO studentEventInterestDTO) {
         StudentEventInterest studentEventInterest = studentEventInterestMapper.toEntity(studentEventInterestDTO);
-        StudentEventInterest savedStudentEventInterest = studentEventInterestRepository.save(studentEventInterest);
+        StudentEventInterest savedStudentEventInterest = studentEventInterestRepository.insertEventParticipant(studentEventInterest.getEvent().getId(), studentEventInterest.getStudent().getId());
         return studentEventInterestMapper.toDTO(savedStudentEventInterest);
     }
 
@@ -43,4 +45,5 @@ public class StudentEventInterestServiceImpl implements StudentEventInterestServ
                 .map(studentEventInterestMapper::toDTO)
                 .collect(Collectors.toList());
     }
+
 }

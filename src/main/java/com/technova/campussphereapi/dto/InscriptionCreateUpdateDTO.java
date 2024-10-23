@@ -13,11 +13,12 @@ public class InscriptionCreateUpdateDTO {
     private InscriptionStatus inscriptionStatus;
     private LocalDateTime inscriptionDate;
 
-    @NotNull(message = "El evento es obligatorio")
-    private Integer eventId;
-    @NotNull(message = "El usuario es obligatorio")
+    //@NotNull(message = "El evento es obligatorio")
+    //private Integer eventId;
 
+    @NotNull(message = "El usuario es obligatorio")
     private Integer studentId;
+
     private Float total;
     private List<InscriptionItemCreateUpdateDTO> items;
 

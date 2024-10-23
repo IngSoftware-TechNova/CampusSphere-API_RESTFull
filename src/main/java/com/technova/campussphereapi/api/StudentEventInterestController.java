@@ -12,8 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/student-event-interest")
-@PreAuthorize("hasRole('STUDENT')") // Permitir solo a Student
-
+@PreAuthorize("hasAnyRole('STUDENT', 'ADMIN')") // Permitir solo a Student
 public class StudentEventInterestController {
     private final StudentEventInterestService studentEventInterestService;
 

@@ -6,5 +6,5 @@ import lombok.Data;
 public class InscriptionItemCreateUpdateDTO {
     private Integer eventId;
     //private Integer quantity;
-    private Float price;
+    //private Float price;
 }
