@@ -53,7 +53,7 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.findByFirstNameAndLastName(userRegistrationDTO.getFirstName(), userRegistrationDTO.getLastName())
                 .filter(existingAuthor -> !existingAuthor.getId().equals(id))
                 .ifPresent(existingAuthor -> {
-                    throw new BadRequestException("Ya existe un autor con el mismo nombre y apellido");
+                    throw new BadRequestException("Ya existe un estudiante con el mismo nombre y apellido");
                 });
 
         // Actualizar los campos

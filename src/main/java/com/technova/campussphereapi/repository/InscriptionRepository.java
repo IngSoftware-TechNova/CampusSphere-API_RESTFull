@@ -16,7 +16,8 @@ public interface InscriptionRepository extends JpaRepository<Inscription, Intege
 
     List<Inscription> findByUserId(Integer userId);
 
-    @Query(value = "SELECT * FROM fn_list_inscriptions_per_event_report()", nativeQuery = true)
-    List<Object[]> getInscriptionPerEventReport();
+    //@Query(value = "SELECT * FROM fn_list_inscriptions_per_event_report()", nativeQuery = true)
+    @Query(value = "SELECT quantity, consultdate FROM fn_list_inscriptions_per_event_report()", nativeQuery = true)
+    List<Object[]> getInscriptionEventReportDate();
 
 }

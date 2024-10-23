@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -14,6 +15,7 @@ public class Inscription {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    private Float total;
 
     @Column(name = "inscription_date")
     private LocalDateTime inscriptionDate;
@@ -30,4 +32,8 @@ public class Inscription {
     @JoinColumn(name = "user_id", referencedColumnName = "id",
             foreignKey = @ForeignKey(name = "fk_inscription_user"))
     private User user;
+
+    @OneToMany(mappedBy = "inscription", cascade = CascadeType.ALL)
+    private List<InscriptionItem> items;
+
 }

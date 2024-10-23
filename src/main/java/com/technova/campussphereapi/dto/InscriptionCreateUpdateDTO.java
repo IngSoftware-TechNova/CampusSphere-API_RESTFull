@@ -5,10 +5,10 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 public class InscriptionCreateUpdateDTO {
-
     private Integer id;
     private InscriptionStatus inscriptionStatus;
     private LocalDateTime inscriptionDate;
@@ -16,5 +16,9 @@ public class InscriptionCreateUpdateDTO {
     @NotNull(message = "El evento es obligatorio")
     private Integer eventId;
     @NotNull(message = "El usuario es obligatorio")
-    private Integer userId;
+
+    private Integer studentId;
+    private Float total;
+    private List<InscriptionItemCreateUpdateDTO> items;
+
 }

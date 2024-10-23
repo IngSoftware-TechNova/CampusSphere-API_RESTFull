@@ -8,5 +8,9 @@ import java.util.List;
 
 public interface InscriptionService {
     InscriptionDetailsDTO create(InscriptionCreateUpdateDTO inscriptionCreateUpdateDTO);
-    List<InscriptionReportDTO> getInscriptionPerEventReport();
+    //List<InscriptionReportDTO> getInscriptionEventReportDate();
+    List<InscriptionDetailsDTO> getInscriptionHistoryByUserId();
+    List<InscriptionDetailsDTO> getAllInscription();
+    InscriptionDetailsDTO confirmInscription(Integer inscriptionId);
+    InscriptionDetailsDTO getInscriptionById(Integer id);
 }
