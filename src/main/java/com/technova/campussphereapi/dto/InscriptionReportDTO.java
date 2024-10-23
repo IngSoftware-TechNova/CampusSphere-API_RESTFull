@@ -11,5 +11,6 @@ public class InscriptionReportDTO {
 
     private String nameEvent;
     private Integer quantity;
+    private String consultDate;
 
 }
