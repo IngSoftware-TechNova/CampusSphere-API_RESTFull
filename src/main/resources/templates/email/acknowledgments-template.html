@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta name="viewport" content="width=device-width" />
+  <meta charset="UTF-8">
+  <title>Agradecimientos por Puntuar Evento</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .email-container {
+      width: 100%;
+      padding: 0;
+      margin: 50px 0;
+      text-align: center;
+    }
+    .email-content {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      display: inline-block;
+      text-align: center;
+    }
+    .email-header {
+      color: #333333;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+    .email-text {
+      color: #555555;
+      font-size: 16px;
+      line-height: 1.5;
+      margin: 15px 0;
+    }
+    .footer {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #777777;
+    }
+    .footer a {
+      color: #777777;
+      text-decoration: none;
+    }
+    .ascii-image {
+      font-family: monospace;
+      color: #555555;
+      margin-top: 20px;
+      text-align: center;
+    }
+    pre {
+      margin: 0 auto;
+      display: inline-block;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+<table class="email-container" role="presentation">
+  <tr>
+    <td>&nbsp;</td>
+    <td>
+      <div class="email-content">
+
+        <!-- Header -->
+        <h1 class="email-header">¡Gracias por puntuar nuestro evento!</h1>
+        <p class="email-text">Hola, <span th:text="${user}"></span></p>
+        <p class="email-text">Queremos agradecerte por puntuar el evento <span th:text="${eventName}"></span>.</p>
+
+        <p class="email-text">Tus calificaciones nos ayudarán a seguir mejorando cada vez más.</p>
+        <p class="email-text">Gracias, <br/> El equipo de CampusSphere</p>
+
+        <!-- ASCII Image of a hand holding a flower -->
+        <div class="ascii-image">
+          <pre>
+   ❀✿..
+   ✿❀✿..
+               |/ /....()’’’’’’()
+               )~(...(..*o*..)
+               (__).-(,,)---(,,)
+          </pre>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+          <p>Lima, Perú</p>
+          <p>
+            <a href="http://htmlemail.io">© 2024 CampusSphere</a>.
+          </p>
+        </div>
+
+      </div>
+    </td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+</body>
+</html>

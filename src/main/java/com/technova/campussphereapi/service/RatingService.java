@@ -3,6 +3,7 @@ package com.technova.campussphereapi.service;
 import com.technova.campussphereapi.dto.RatingCreateUpdateDTO;
 import com.technova.campussphereapi.dto.RatingDetailsDTO;
 import com.technova.campussphereapi.dto.PuntuacionReportDTO;
+import jakarta.mail.MessagingException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -15,7 +16,7 @@ public interface RatingService {
 
     RatingDetailsDTO findById(Integer id);
 
-    RatingDetailsDTO create(RatingCreateUpdateDTO ratingCreateDTO);
+    RatingDetailsDTO create(RatingCreateUpdateDTO ratingCreateDTO) throws MessagingException;
 
     RatingDetailsDTO update(Integer id, RatingCreateUpdateDTO ratingUpdateDTO);
 
