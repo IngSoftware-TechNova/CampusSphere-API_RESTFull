@@ -10,4 +10,5 @@ import java.util.List;
 public interface InscriptionService {
     InscriptionDetailsDTO create(InscriptionCreateUpdateDTO inscriptionCreateUpdateDTO) throws MessagingException;
     List<InscriptionReportDTO> getInscriptionPerEventReport();
+    void delete(Integer eventId);
 }

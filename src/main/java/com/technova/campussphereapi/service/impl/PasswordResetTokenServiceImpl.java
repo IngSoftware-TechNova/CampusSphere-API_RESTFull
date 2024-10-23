@@ -59,15 +59,18 @@ public class PasswordResetTokenServiceImpl implements PasswordResetTokenService 
 
     }
 
+    @Transactional(readOnly = true)
     @Override
     public PasswordResetToken findByToken(String token) {
         return passwordResetTokenRepository.findByToken(token)
                 .orElseThrow(() -> new ResourceNotFoundException("Token de restablecimiento de contraseña no encontrado"));
     }
 
+    @Transactional(readOnly = true)
     @Override
-    public void removeResetToken(PasswordResetToken passwordResetToken) {
-        passwordResetTokenRepository.delete(passwordResetToken);
+    public PasswordResetToken findByUserId(Integer userId) {
+        return passwordResetTokenRepository.findByUserId(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("UserId no encontrado"));
     }
 
     @Override
@@ -77,6 +80,14 @@ public class PasswordResetTokenServiceImpl implements PasswordResetTokenService 
                 .isPresent();
     }
 
+    @Transactional
+    @Override
+    public void removeResetToken(String token) {
+        PasswordResetToken passwordResetToken = findByToken(token);
+        passwordResetTokenRepository.delete(passwordResetToken);
+    }
+
+    @Transactional
     @Override
     public void resetPassword(String token, String newPassword) {
         PasswordResetToken resetToken = passwordResetTokenRepository.findByToken(token)

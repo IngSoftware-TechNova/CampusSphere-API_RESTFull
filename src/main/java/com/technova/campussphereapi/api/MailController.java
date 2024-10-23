@@ -35,4 +35,12 @@ public class MailController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    // Eliminar el token de reset password en caso haya pasado el tiempo de resetear la
+    @DeleteMapping("/remove/{token}")
+    public ResponseEntity<Void> removePassword(@PathVariable("token") String token) {
+        passwordResetTokenService.removeResetToken(token);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
 }

@@ -104,6 +104,24 @@ public class InscriptionServiceImpl implements InscriptionService {
         return inscriptionReportDTOS;
     }
 
+    @Transactional
+    @Override
+    public void delete(Integer eventId) {
+
+        Event event = eventRepository.findById(eventId)
+                .orElseThrow(() -> new ResourceNotFoundException("Evento not found with id: " + eventId));
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String userEmail = authentication.getName();
+        User user = userRepository.findByEmail(userEmail)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with email: " + userEmail));
+
+        Inscription inscription = inscriptionRepository.findByEventAndUser(event, user)
+                        .orElseThrow(() -> new ResourceNotFoundException("Inscription not found with eventId: " + eventId + " and mail: " + userEmail));
+
+        inscriptionRepository.delete(inscription);
+    }
+
     private void sendInscriptionConfirmationEmail(EventDetailsDTO eventDetailsDTO) throws MessagingException {
 
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();

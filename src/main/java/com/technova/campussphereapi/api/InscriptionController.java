@@ -35,4 +35,11 @@ public class InscriptionController {
         return ResponseEntity.ok(reports);
     }
 
+    @DeleteMapping("/delete/{eventId}")
+    public ResponseEntity<InscriptionDetailsDTO> delete(@PathVariable Integer eventId){
+        inscriptionService.delete(eventId);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+
 }
