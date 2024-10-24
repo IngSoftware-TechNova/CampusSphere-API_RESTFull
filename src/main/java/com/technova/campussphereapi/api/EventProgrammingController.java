@@ -6,12 +6,14 @@ import com.technova.campussphereapi.service.EventProgrammingService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
 @RequestMapping("/event-programming")
 @RequiredArgsConstructor
+@PreAuthorize("hasRole('STUDENT')")
 public class EventProgrammingController {
 
     private final EventProgrammingService eventProgrammingService;

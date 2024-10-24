@@ -3,17 +3,18 @@ package com.technova.campussphereapi.service.impl;
 import com.technova.campussphereapi.dto.EventProgrammingCreateUpdateDTO;
 import com.technova.campussphereapi.dto.EventProgrammingDTO;
 import com.technova.campussphereapi.dto.UserEventProgrammingDTO;
+import com.technova.campussphereapi.exception.ResourceNotFoundException;
 import com.technova.campussphereapi.mapper.EventProgrammingMapper;
-import com.technova.campussphereapi.model.entity.Event;
-import com.technova.campussphereapi.model.entity.EventProgramming;
-import com.technova.campussphereapi.model.entity.EventProgrammingPK;
-import com.technova.campussphereapi.model.entity.Schedule;
+import com.technova.campussphereapi.model.entity.*;
 import com.technova.campussphereapi.repository.EventProgrammingRepository;
 import com.technova.campussphereapi.repository.EventRepository;
 import com.technova.campussphereapi.repository.ScheduleRepository;
+import com.technova.campussphereapi.repository.UserRepository;
 import com.technova.campussphereapi.service.EventProgrammingService;
 import jakarta.persistence.Entity;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,7 @@ public class EventProgrammingServiceImpl implements EventProgrammingService {
     private final EventProgrammingMapper eventProgrammingMapper;
     private final EventRepository eventRepository;
     private final ScheduleRepository scheduleRepository;
+    private final UserRepository userRepository;
 
     @Override
     @Transactional
@@ -122,8 +124,19 @@ public class EventProgrammingServiceImpl implements EventProgrammingService {
     }
 
     @Override
-    public List<UserEventProgrammingDTO> getUserEventProgramming(Integer studentId) {
-        List<Object[]> results = eventProgrammingRepository.getUserEventProgramming(studentId);
+    public List<UserEventProgrammingDTO> getUserEventProgramming() {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = null;
+
+        if (authentication != null && !authentication.getPrincipal().equals("anonymousUser")) {
+            user = userRepository.findByEmail(authentication.getName())
+                    .orElseThrow(ResourceNotFoundException::new);
+        }
+
+        //Integer studentId = user.getId();
+
+        List<Object[]> results = eventProgrammingRepository.getUserEventProgramming(user.getStudent().getId());
 
         // Mapeamos los resultados al DTO
         return results.stream().map(result -> {
