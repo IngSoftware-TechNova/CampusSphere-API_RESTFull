@@ -19,8 +19,8 @@ public class SwaggerAPIConfig {
     @Value("${campussphere.openapi.dev-url}")
     private String devUrl;
 
-    //@Value("${bookhub.openapi.prod-url}")
-    //private String prodUrl;
+    @Value("${campussphere.openapi.prod-url}")
+    private String prodUrl;
 
     @Bean
     public OpenAPI myOpenAPI(){
@@ -30,9 +30,9 @@ public class SwaggerAPIConfig {
         devServer.setDescription("Development Server");
 
         // Definir el servidor de producción
-        //Server prodServer = new Server();
-        //prodServer.setUrl(prodUrl);
-        //prodServer.setDescription("Server URL in Production environment");
+        Server prodServer = new Server();
+        prodServer.setUrl(prodUrl);
+        prodServer.setDescription("Server URL in Production environment");
 
         //Informacion de contacto
         Contact contact = new Contact();
@@ -68,7 +68,7 @@ public class SwaggerAPIConfig {
 
         return new OpenAPI()
                 .info(info)
-                .servers(List.of(devServer))
+                .servers(List.of(devServer, prodServer))
                 .addSecurityItem(securityRequirement)
                 .components(components);
     }
