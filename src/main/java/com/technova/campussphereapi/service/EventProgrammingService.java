@@ -15,5 +15,5 @@ public interface EventProgrammingService {
     List<EventProgrammingDTO> findByIdEvent(int eventsId);
     List<EventProgrammingDTO> findByIdSchedule(int schedulesId);
     List<EventProgrammingDTO> findAll();
-    List<UserEventProgrammingDTO> getUserEventProgramming(Integer studentId);
+    List<UserEventProgrammingDTO> getUserEventProgramming();
 }
