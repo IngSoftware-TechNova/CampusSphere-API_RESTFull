@@ -13,7 +13,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/event-programming")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('STUDENT')")
+//@PreAuthorize("hasRole('STUDENT')")
+@PreAuthorize("hasAnyRole('STUDENT', 'ADMIN')")
 public class EventProgrammingController {
 
     private final EventProgrammingService eventProgrammingService;

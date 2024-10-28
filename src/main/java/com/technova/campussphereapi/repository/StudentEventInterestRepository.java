@@ -13,4 +13,8 @@ public interface StudentEventInterestRepository extends JpaRepository<StudentEve
 
     StudentEventInterest insertEventParticipant(@Param("idEvent") Integer idEvent,
                               @Param("idParticipant") Integer idParticipant);
+
+    boolean existsByStudentIdAndEventId(Integer studentId, Integer eventId);
+    void deleteByStudentIdAndEventId(Integer studentId, Integer eventId);
+
 }
