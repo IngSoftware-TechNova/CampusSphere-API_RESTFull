@@ -6,10 +6,7 @@ import com.technova.campussphereapi.dto.UserEventProgrammingDTO;
 import com.technova.campussphereapi.exception.ResourceNotFoundException;
 import com.technova.campussphereapi.mapper.EventProgrammingMapper;
 import com.technova.campussphereapi.model.entity.*;
-import com.technova.campussphereapi.repository.EventProgrammingRepository;
-import com.technova.campussphereapi.repository.EventRepository;
-import com.technova.campussphereapi.repository.ScheduleRepository;
-import com.technova.campussphereapi.repository.UserRepository;
+import com.technova.campussphereapi.repository.*;
 import com.technova.campussphereapi.service.EventProgrammingService;
 import jakarta.persistence.Entity;
 import lombok.RequiredArgsConstructor;
@@ -20,9 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Time;
 import java.time.LocalTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -33,6 +28,7 @@ public class EventProgrammingServiceImpl implements EventProgrammingService {
     private final EventRepository eventRepository;
     private final ScheduleRepository scheduleRepository;
     private final UserRepository userRepository;
+    private final InscriptionRepository inscriptionRepository;
 
     @Override
     @Transactional
@@ -116,6 +112,7 @@ public class EventProgrammingServiceImpl implements EventProgrammingService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<EventProgrammingDTO> findAll() {
         List<EventProgramming> eventProgrammings = eventProgrammingRepository.findAll();
         return eventProgrammings.stream()
@@ -123,9 +120,10 @@ public class EventProgrammingServiceImpl implements EventProgrammingService {
                 .toList();
     }
 
+
+    @Transactional(readOnly = true)
     @Override
     public List<UserEventProgrammingDTO> getUserEventProgramming() {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = null;
 
@@ -134,24 +132,35 @@ public class EventProgrammingServiceImpl implements EventProgrammingService {
                     .orElseThrow(ResourceNotFoundException::new);
         }
 
-        //Integer studentId = user.getId();
-
         List<Object[]> results = eventProgrammingRepository.getUserEventProgramming(user.getStudent().getId());
 
-        // Mapeamos los resultados al DTO
-        return results.stream().map(result -> {
-            UserEventProgrammingDTO dto = new UserEventProgrammingDTO();
-            dto.setEventName((String) result[0]);  // Columna 0: event_name
-            dto.setEventDescription((String) result[1]);  // Columna 1: event_description
+        Map<String, UserEventProgrammingDTO> inscriptionsMap = new HashMap<>();
 
-            // Convertimos java.sql.Time a java.time.LocalTime usando toLocalTime() y luego a String
-            dto.setScheduleStart(((Time) result[2]).toLocalTime().toString());  // Columna 2: schedule_start
-            dto.setScheduleEnd(((Time) result[3]).toLocalTime().toString());    // Columna 3: schedule_end
+        for (Object[] result : results) {
+            String inscriptionId = (String) result[0];
+            inscriptionsMap.computeIfAbsent(inscriptionId, id -> {
+                UserEventProgrammingDTO dto = new UserEventProgrammingDTO();
+                dto.setInscriptionId(inscriptionId); // Ya es String
+                dto.setInscriptionStatus((String) result[1]);
+                dto.setStudentName((String) result[2]);
+                dto.setTotal((String) result[3]); // Ya es String
+                dto.setCreatedAt((String) result[4]); // Ya es String
+                dto.setItems(new ArrayList<>());
+                return dto;
+            });
 
-            // Convertimos java.sql.Date a String usando toString()
-            dto.setEventStartDate(((Date) result[4]).toString());  // Columna 4: event_start_date
-            dto.setEventEndDate(((Date) result[5]).toString());    // Columna 5: event_end_date
-            return dto;
-        }).toList();
+            UserEventProgrammingDTO.EventItem eventItem = new UserEventProgrammingDTO.EventItem();
+            eventItem.setEventId((String) result[5]); // Ya es String
+            eventItem.setEventName((String) result[6]);
+            eventItem.setEventDescription((String) result[7]);
+            eventItem.setScheduleStart((String) result[8]);
+            eventItem.setScheduleEnd((String) result[9]);
+            eventItem.setEventStartDate((String) result[10]);
+            eventItem.setEventEndDate((String) result[11]);
+
+            inscriptionsMap.get(inscriptionId).getItems().add(eventItem);
+        }
+
+        return new ArrayList<>(inscriptionsMap.values());
     }
 }

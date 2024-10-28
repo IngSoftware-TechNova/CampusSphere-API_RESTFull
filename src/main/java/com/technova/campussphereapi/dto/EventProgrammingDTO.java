@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 @Data
 public class EventProgrammingDTO {
@@ -15,4 +16,17 @@ public class EventProgrammingDTO {
 
     @JsonFormat(pattern = "dd/MM/yy")
     private LocalDate endDate;
+
+    // Información adicional del evento
+    private String eventName;
+    private String eventDescription;
+
+    // Información adicional del horario
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime scheduleStartHour;
+
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime scheduleEndHour;
+
+    private String scheduleDescription;
 }

@@ -17,6 +17,15 @@ public class EventProgrammingMapper {
     public EventProgrammingMapper(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;
         this.modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+        modelMapper.typeMap(EventProgramming.class, EventProgrammingDTO.class).addMappings(mapper -> {
+            mapper.map(src -> src.getEvent().getId(), EventProgrammingDTO::setEventId);
+            mapper.map(src -> src.getSchedule().getId(), EventProgrammingDTO::setScheduleId);
+            mapper.map(src -> src.getEvent().getName(), EventProgrammingDTO::setEventName);
+            mapper.map(src -> src.getEvent().getDescription(), EventProgrammingDTO::setEventDescription);
+            mapper.map(src -> src.getSchedule().getStartHour(), EventProgrammingDTO::setScheduleStartHour);
+            mapper.map(src -> src.getSchedule().getEndHour(), EventProgrammingDTO::setScheduleEndHour);
+            mapper.map(src -> src.getSchedule().getDescription(), EventProgrammingDTO::setScheduleDescription);
+        });
     }
 
     public EventProgrammingDTO toDTO(EventProgramming eventProgramming) {
