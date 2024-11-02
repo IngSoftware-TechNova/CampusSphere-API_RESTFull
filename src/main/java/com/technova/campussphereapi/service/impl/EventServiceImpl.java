@@ -2,6 +2,7 @@ package com.technova.campussphereapi.service.impl;
 
 import com.technova.campussphereapi.dto.EventCreateUpdateDTO;
 import com.technova.campussphereapi.dto.EventDetailsDTO;
+import com.technova.campussphereapi.dto.FilteredEventsDTO;
 import com.technova.campussphereapi.exception.BadRequestException;
 import com.technova.campussphereapi.exception.ResourceNotFoundException;
 import com.technova.campussphereapi.mapper.EventMapper;
@@ -18,6 +19,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -48,6 +51,27 @@ public class EventServiceImpl implements EventService {
                 orElseThrow(() -> new ResourceNotFoundException("Evento no encontrado con id: " + id));
 
         return eventMapper.toDetailsDTO(event);
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<FilteredEventsDTO> getEventsFiltered(BigDecimal precioMin, BigDecimal precioMax, String categoriaName, String ubicacion) {
+        List<Object[]> results = eventRepository.getEventsFiltered(precioMin, precioMax, categoriaName, ubicacion);
+        //Mapeo de la lista de objetos a una lista de FilteredEventsDTO
+        List<FilteredEventsDTO> filteredEventsDTOS = results.stream()
+                .map(result ->
+                        new FilteredEventsDTO(
+                                ((Integer) result[0]).intValue(),  // id (event_id)
+                                (String) result[1],                // name (event_name)
+                                (String) result[2],                // description (event_description)
+                                (Integer) result[3],               // capacity (event_capacity)
+                                (String) result[4],                // locationName (location_name)
+                                (String) result[5],                // categoryName (category_name)
+                                (BigDecimal) result[6]             // PriceValue (event_price)
+                        )
+                ).toList();
+
+        return filteredEventsDTOS;
     }
 
     @Transactional
