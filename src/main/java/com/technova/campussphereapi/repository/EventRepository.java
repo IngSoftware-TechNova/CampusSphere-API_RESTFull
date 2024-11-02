@@ -12,9 +12,8 @@ public interface EventRepository extends JpaRepository<Event, Integer> {
 
     Optional<Event> findByNameAndDescription(String name, String description);
 
-    //List<Event> findTop7ByOrderByPriceAtDesc();
-
     @Query(value = "SELECT * FROM fn_filer_events(?, ?, ?, ?)", nativeQuery = true)
     List<Object[]> getEventsFiltered(BigDecimal precioMin, BigDecimal precioMax, String categoriaName, String ubicacion);
-
+  
+    List<Event> findTop8ByOrderByCreatedAtDesc();
 }

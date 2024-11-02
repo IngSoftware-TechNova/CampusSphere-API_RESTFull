@@ -7,19 +7,17 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PriceMapper {
-
     private final ModelMapper modelMapper;
 
     public PriceMapper(ModelMapper modelMapper) {
-        this.modelMapper = modelMapper;
+        this.modelMapper =  modelMapper;
     }
 
-    public PriceDTO toDTO (Price price) {
+    public PriceDTO toDTO(Price price) {
         return modelMapper.map(price, PriceDTO.class);
     }
 
-    public Price toEntity (PriceDTO priceDTO) {
+    public Price toEntity(PriceDTO priceDTO) {
         return modelMapper.map(priceDTO, Price.class);
     }
-
 }

@@ -14,12 +14,11 @@ public class LocationMapper {
         this.modelMapper = modelMapper;
     }
 
-    public LocationDTO toDTO (Location location) {
+    public LocationDTO toDTO(Location location) {
         return modelMapper.map(location, LocationDTO.class);
     }
 
-    public Location toEntity (LocationDTO locationDTO) {
+    public Location toEntity(LocationDTO locationDTO) {
         return modelMapper.map(locationDTO, Location.class);
     }
-
 }

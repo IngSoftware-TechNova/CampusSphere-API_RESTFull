@@ -1,20 +1,20 @@
 package com.technova.campussphereapi.dto;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import lombok.Data;
-
 import java.math.BigDecimal;
 
 @Data
 public class PriceDTO {
-
     private Integer id;
+
     @NotNull(message = "El precio es obligatorio")
-    @Positive(message = "El precio debe ser un valor positivo")
+    @DecimalMin(value = "0.0", message = "El valor mínimo es de 0 soles")
     private BigDecimal price;
-    @NotBlank(message = "La descripcion es obligatoria")
+
+    @NotNull(message = "La descripción es obligatoria")
+    @NotBlank(message = "La descripcion es obligatorio")
+    @Size(max = 100, message = "La descripcion debe tener 100 caracteres o menos")
     private String description;
 
 }

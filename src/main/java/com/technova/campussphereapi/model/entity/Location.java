@@ -7,7 +7,6 @@ import lombok.Data;
 @Entity
 @Table(name = "locations")
 public class Location {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -20,6 +19,4 @@ public class Location {
 
     @Column(name = "country", columnDefinition = "TEXT")
     private String country;
-
-
 }
