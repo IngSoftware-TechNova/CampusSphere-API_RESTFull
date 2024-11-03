@@ -10,7 +10,7 @@ public interface UserService {
     // Register a Student
     UserProfileDTO registerStudent(UserRegistrationDTO registrationDTO);
 
-    // Si hubiera otro Role, agregaria más tipos de registration para cada uno de estos
+    // Si hubiera otro ERole, agregaria más tipos de registration para cada uno de estos
 
     // Actualizar el perfil de usuario
     UserProfileDTO updateUserProfile(Integer id, UserProfileDTO userProfileDTO);

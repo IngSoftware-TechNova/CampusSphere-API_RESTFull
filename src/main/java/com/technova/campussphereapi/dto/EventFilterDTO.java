@@ -10,8 +10,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EventFilterDTO {
-    private BigDecimal precioMin;
-    private BigDecimal precioMax;
+    private Float precioMin;
+    private Float precioMax;
     private String categoriaName;
     private String ubicacion;
 }

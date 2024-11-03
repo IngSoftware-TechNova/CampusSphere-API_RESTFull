@@ -4,17 +4,17 @@ INSERT INTO roles (id, name) VALUES
 (2, 'STUDENT');
 
 
-INSERT INTO users (id, role_id, email, password) VALUES
-(1, 1, 'admin@example.com', '$2a$10$PzUVO/510BcY7LtZiRV/.uXMRGXiFJuiO0gtfwrB9J5NJoRieabn6'),
-(2, 2, 'student1@example.com', '$2a$10$plESYmrgNN3fIK2nHmqXlOehFndDlJ8fXuyWzVhNT4kmfESIOykmW'),
-(3, 2, 'student2@example.com', '$2a$10$CeqxuJX/CkC8UVxAiDz2eOwgV0b/VmWKmvm88YTvV4DvRGQIbFo5i'),
-(4, 2, 'student3@example.com', '$2a$10$bYvnpX8Wct8KjNFHW2DPBOKmN.W14ncg7QtU1mMf8ln0wmQ9ZA4zi'),
-(5, 2, 'student4@example.com', '$2a$10$wXHLojkUxfStLZAMgOf12ekxmi9Hfs9/NRH.M9SPmYwSQkmPgVzSq'),
-(6, 2, 'student5@example.com', '$2a$10$ME.w0p.LNZ6MOng1/YxXT.wfiiH6r/7eSvXlHa98Ugf3CXHjll7hS'),
-(7, 2, 'student6@example.com', '$2a$10$jD78n6IHGcPEfiXrKFAXxehiGDgrgol4MLDglDTnhukInE78hJZM6'),
-(8, 2, 'student7@example.com', '$2a$10$CRb9QFmOnIFhn8dnnX5Aj.jNILVUeKayoMMFLj0nYg1gEpbFt2Mu6'),
-(9, 2, 'student8@example.com', '$2a$10$WULz1TnsCFz43Usnk0Mj4O3WUScbuz57m92t0Il80wofSriTpIUkq'),
-(10, 2, 'student9@example.com', '$2a$10$efsbLTLDkZkiKpCur.2HFe0/y3P36D0Eqg12tsHInmfOGuVUFbdZi');
+INSERT INTO users (id, role_id, email, password, profile_pic_path) VALUES
+(1, 1, 'admin@example.com', '$2a$10$PzUVO/510BcY7LtZiRV/.uXMRGXiFJuiO0gtfwrB9J5NJoRieabn6', ddc51626-7acb-4468-990a-2011c649e72b.jpg),
+(2, 2, 'student1@example.com', '$2a$10$plESYmrgNN3fIK2nHmqXlOehFndDlJ8fXuyWzVhNT4kmfESIOykmW', 3f4fb12d-eb55-4106-9fbe-09fe97bbcd5f.jpg),
+(3, 2, 'student2@example.com', '$2a$10$CeqxuJX/CkC8UVxAiDz2eOwgV0b/VmWKmvm88YTvV4DvRGQIbFo5i', b6ae07b5-58e9-41f6-a06f-a77fdd53ee6e.jpg),
+(4, 2, 'student3@example.com', '$2a$10$bYvnpX8Wct8KjNFHW2DPBOKmN.W14ncg7QtU1mMf8ln0wmQ9ZA4zi', f874b43e-072f-44c5-bfcd-062d5d37d9ad.jpg),
+(5, 2, 'student4@example.com', '$2a$10$wXHLojkUxfStLZAMgOf12ekxmi9Hfs9/NRH.M9SPmYwSQkmPgVzSq', af07f0bc-e410-459b-9387-6417b50b4ef2.jpg),
+(6, 2, 'student5@example.com', '$2a$10$ME.w0p.LNZ6MOng1/YxXT.wfiiH6r/7eSvXlHa98Ugf3CXHjll7hS', 37328ba1-0830-4b9f-8522-a20a907af260.png),
+(7, 2, 'student6@example.com', '$2a$10$jD78n6IHGcPEfiXrKFAXxehiGDgrgol4MLDglDTnhukInE78hJZM6', ee777b7c-51f7-4ce7-90e7-169b83fef521.png),
+(8, 2, 'student7@example.com', '$2a$10$CRb9QFmOnIFhn8dnnX5Aj.jNILVUeKayoMMFLj0nYg1gEpbFt2Mu6', be6621fb-31c1-4e9a-9208-ed6e64c232d3.png),
+(9, 2, 'student8@example.com', '$2a$10$WULz1TnsCFz43Usnk0Mj4O3WUScbuz57m92t0Il80wofSriTpIUkq', 3a26a86f-5be4-46e8-9c38-7e14abeb7f51.png),
+(10, 2, 'student9@example.com', '$2a$10$efsbLTLDkZkiKpCur.2HFe0/y3P36D0Eqg12tsHInmfOGuVUFbdZi', 572cd96e-ac2e-461d-b4a3-a98c11646274.png);
 
 
 
@@ -80,17 +80,17 @@ INSERT INTO schedules (id, start_hour, end_hour, description) VALUES
 (9, '15:00', '17:00', 'Sesión de cierre'),
 (10, '17:00', '19:00', 'Networking');
 
-INSERT INTO events (id, name, description, capacity, category_id, location_id, price_id, created_at) VALUES
-(1, 'Concert', 'Live music concert', 500, 1, 1, 1, NOW()),
-(2, 'Art Workshop', 'Painting and drawing class', 30, 2, 2, 2, NOW()),
-(3, 'Tech Conference', 'Latest trends in technology', 300, 3, 3, 3, NOW()),
-(4, 'Marathon', 'Running competition', 1000, 4, 4, 4, NOW()),
-(5, 'Cooking Class', 'Learn to cook Italian food', 20, 6, 5, 5, NOW()),
-(6, 'Business Seminar', 'How to start a business', 150, 7, 6, 6, NOW()),
-(7, 'Yoga Session', 'Relaxation and wellness', 40, 8, 7, 7, NOW()),
-(8, 'Travel Talk', 'Travel tips and tricks', 80, 9, 8, 8, NOW()),
-(9, 'Science Fair', 'Showcase of scientific projects', 200, 10, 9, 9, NOW()),
-(10, 'Football Match', 'Local teams competing', 10000, 4, 10, 10, NOW());
+INSERT INTO events (id, name, description, capacity, category_id, location_id, price_id, created_at, image_path) VALUES
+(1, 'Concert', 'Live music concert', 500, 1, 1, 1, NOW(), a40e9107-4b09-4ade-aada-abed09ee91a1.png),
+(2, 'Art Workshop', 'Painting and drawing class', 30, 2, 2, 2, NOW(), 65f55bd2-33e0-4727-a0f9-24525d657fc5.jpg),
+(3, 'Tech Conference', 'Latest trends in technology', 300, 3, 3, 3, NOW(), bcdec13c-c1d1-4964-a1db-c9968b4d06d3.jpg),
+(4, 'Marathon', 'Running competition', 1000, 4, 4, 4, NOW(), da0ec08a-7cec-4155-a0ed-db939e1880a1.jpg),
+(5, 'Cooking Class', 'Learn to cook Italian food', 20, 6, 5, 5, NOW(), a408b4e2-005f-4f54-89a3-16053e8ace3c.png),
+(6, 'Business Seminar', 'How to start a business', 150, 7, 6, 6, NOW(), 40f17fb5-f196-41fe-a8b7-86c287ad464d.png),
+(7, 'Yoga Session', 'Relaxation and wellness', 40, 8, 7, 7, NOW(), ec912dbe-bb48-454a-9170-6d1426af9dff.jpg),
+(8, 'Travel Talk', 'Travel tips and tricks', 80, 9, 8, 8, NOW(), 669363a0-5084-4134-ae6b-01d1327dc9ee.jpg),
+(9, 'Science Fair', 'Showcase of scientific projects', 200, 10, 9, 9, NOW(), 96dbfb6c-acda-4d5c-80c0-945c7a638e4b.png),
+(10, 'Football Match', 'Local teams competing', 10000, 4, 10, 10, NOW(), 269ef701-adfb-4147-9e32-3c6a8259aa5d.jpg);
 
 
  */

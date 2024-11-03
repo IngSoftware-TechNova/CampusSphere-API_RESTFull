@@ -22,7 +22,9 @@ public class EventMapper {
 
         eventDetailsDTO.setCategoryName(event.getCategory().getName());
         eventDetailsDTO.setLocationName(event.getLocation().getLocation());
+        eventDetailsDTO.setCityName(event.getLocation().getCity());
         eventDetailsDTO.setPriceValue(event.getPrice().getPrice());
+        eventDetailsDTO.setCreatedAt(event.getCreatedAt().toString());
 
         return eventDetailsDTO;
     }

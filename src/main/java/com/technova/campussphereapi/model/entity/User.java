@@ -16,6 +16,9 @@ public class User {
 
     private String password;
 
+    @Column(name = "profile_pic_path")
+    private String profilePicPath;
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Student student;
 

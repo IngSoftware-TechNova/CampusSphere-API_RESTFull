@@ -25,6 +25,7 @@ public class UserMapper {
             userProfileDTO.setFirstName(user.getStudent().getFirstName());
             userProfileDTO.setLastName(user.getStudent().getLastName());
             userProfileDTO.setCareer(user.getStudent().getCareer());
+            userProfileDTO.setProfilePicPath(user.getProfilePicPath());
         }
         return userProfileDTO;
     }
@@ -37,6 +38,8 @@ public class UserMapper {
     //Convertir de User a AuthResponseDTO para la respuesta de autenticacion
     public AuthResponseDTO toAuthResponseDTO(User user, String token) {
         AuthResponseDTO authResponseDTO = new AuthResponseDTO();
+
+        authResponseDTO.setId(user.getId());
         authResponseDTO.setToken(token);
 
         //Obtener el nombre y apellido
@@ -47,7 +50,7 @@ public class UserMapper {
 
         authResponseDTO.setFirstName(firstName);
         authResponseDTO.setLastName(lastName);
-
+        authResponseDTO.setStudentId(user.getStudent().getId());
         authResponseDTO.setRole(user.getRole().getName().name());
 
         return authResponseDTO;

@@ -11,7 +11,7 @@ import java.util.List;
 public interface EventService {
     List<EventDetailsDTO> findAll();
     EventDetailsDTO findById(Integer id);
-    List<FilteredEventsDTO> getEventsFiltered(BigDecimal precioMin, BigDecimal precioMax, String categoriaName, String ubicacion);
+    List<FilteredEventsDTO> getEventsFiltered(Float precioMin, Float precioMax, String categoriaName, String ubicacion);
 
     EventDetailsDTO create(EventCreateUpdateDTO eventCreateDTO);
     EventDetailsDTO update(Integer id, EventCreateUpdateDTO eventUpdateDTO);

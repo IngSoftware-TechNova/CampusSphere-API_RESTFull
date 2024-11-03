@@ -19,7 +19,7 @@ public class HomeEventController {
 
     private final EventService eventService;
 
-    //Endpoint para obtener los 6 eventos mas recientes
+    //Endpoint para obtener los 8 eventos mas recientes
     @GetMapping("/recent")
     public ResponseEntity<List<EventDetailsDTO>> getRecentEvents() {
         List<EventDetailsDTO> recentEvents = eventService.findTop8EventsByCreatedAt();

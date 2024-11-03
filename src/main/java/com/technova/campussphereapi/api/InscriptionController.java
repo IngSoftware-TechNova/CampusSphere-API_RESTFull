@@ -35,6 +35,7 @@ public class InscriptionController {
         List<InscriptionReportDTO> reports = inscriptionService.getInscriptionPerEventReport();
         return ResponseEntity.ok(reports);
     }
+
     @DeleteMapping("/delete/{eventId}")
     public ResponseEntity<InscriptionDetailsDTO> delete(@PathVariable Integer eventId){
         inscriptionService.delete(eventId);

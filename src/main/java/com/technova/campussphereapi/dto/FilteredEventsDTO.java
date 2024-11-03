@@ -16,5 +16,5 @@ public class FilteredEventsDTO {
     private Integer capacity;
     private String locationName;
     private String categoryName;
-    private BigDecimal PriceValue;
+    private Float PriceValue;
 }

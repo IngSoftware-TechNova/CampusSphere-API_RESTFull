@@ -1,6 +1,4 @@
 package com.technova.campussphereapi.model.entity;
-
-import com.technova.campussphereapi.model.enums.Role;
 import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;

@@ -13,7 +13,7 @@ public class Price {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column(name = "price", nullable = false,columnDefinition = "DECIMAL")
-    private BigDecimal price;
+    private Float price;
     @Column(name = "description",nullable = false,columnDefinition = "TEXT")
     private String description;
 }

@@ -10,7 +10,7 @@ public class PriceDTO {
 
     @NotNull(message = "El precio es obligatorio")
     @DecimalMin(value = "0.0", message = "El valor mínimo es de 0 soles")
-    private BigDecimal price;
+    private Float price;
 
     @NotNull(message = "La descripción es obligatoria")
     @NotBlank(message = "La descripcion es obligatorio")

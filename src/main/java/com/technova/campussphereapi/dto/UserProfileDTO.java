@@ -7,6 +7,7 @@ import lombok.Data;
 public class UserProfileDTO {
     private Integer id;
     private String email;
+    private String profilePicPath;
     private ERole role; // El rol puede ser STUDENT o otro rol
     private String firstName;  // Nombre del STUDENT o otro rol
     private String lastName;  // Apellido del STUDENT o otro rol

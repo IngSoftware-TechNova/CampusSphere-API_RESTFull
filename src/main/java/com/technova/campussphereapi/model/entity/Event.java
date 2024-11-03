@@ -22,6 +22,9 @@ public class Event {
     @Column(name = "description", columnDefinition = "TEXT")
     private String description;
 
+    @Column(name = "image_path")
+    private String imagePath;
+
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 

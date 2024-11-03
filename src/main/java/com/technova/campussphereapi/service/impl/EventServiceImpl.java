@@ -55,7 +55,7 @@ public class EventServiceImpl implements EventService {
 
     @Transactional(readOnly = true)
     @Override
-    public List<FilteredEventsDTO> getEventsFiltered(BigDecimal precioMin, BigDecimal precioMax, String categoriaName, String ubicacion) {
+    public List<FilteredEventsDTO> getEventsFiltered(Float precioMin, Float precioMax, String categoriaName, String ubicacion) {
         List<Object[]> results = eventRepository.getEventsFiltered(precioMin, precioMax, categoriaName, ubicacion);
         //Mapeo de la lista de objetos a una lista de FilteredEventsDTO
         List<FilteredEventsDTO> filteredEventsDTOS = results.stream()
@@ -67,7 +67,7 @@ public class EventServiceImpl implements EventService {
                                 (Integer) result[3],               // capacity (event_capacity)
                                 (String) result[4],                // locationName (location_name)
                                 (String) result[5],                // categoryName (category_name)
-                                (BigDecimal) result[6]             // PriceValue (event_price)
+                                (Float) result[6]             // PriceValue (event_price)
                         )
                 ).toList();
 
@@ -129,6 +129,7 @@ public class EventServiceImpl implements EventService {
         eventFromDB.setName(updateEvent.getName());
         eventFromDB.setDescription(updateEvent.getDescription());
         eventFromDB.setCapacity(updateEvent.getCapacity());
+        eventFromDB.setImagePath(updateEvent.getImagePath());
         eventFromDB.setLocation(location);
         eventFromDB.setCategory(category);
         eventFromDB.setPrice(price);

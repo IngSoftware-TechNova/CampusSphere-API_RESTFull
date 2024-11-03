@@ -9,6 +9,8 @@ import lombok.Data;
 @Data
 public class UserRegistrationDTO {
 
+    private String imagePath;
+
     @NotBlank(message = "El nombre es obligatorio")
     private String firstName;
 
@@ -22,7 +24,6 @@ public class UserRegistrationDTO {
     @NotNull(message = "La contraseña es obligatoria")
     @Size(min = 4, message = "La contraseña debe tener al menos 9 caracteres")
     private String password;
-
 
     private String career;
 }
