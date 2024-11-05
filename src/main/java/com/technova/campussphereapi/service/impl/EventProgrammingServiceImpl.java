@@ -16,7 +16,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Time;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.*;
 
 @Service
@@ -122,7 +125,6 @@ public class EventProgrammingServiceImpl implements EventProgrammingService {
 
 
     @Transactional(readOnly = true)
-    @Override
     public List<UserEventProgrammingDTO> getUserEventProgramming() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         User user = null;
@@ -136,30 +138,41 @@ public class EventProgrammingServiceImpl implements EventProgrammingService {
 
         Map<String, UserEventProgrammingDTO> inscriptionsMap = new HashMap<>();
 
+        DateTimeFormatter timeFormatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+
         for (Object[] result : results) {
             String inscriptionId = (String) result[0];
             inscriptionsMap.computeIfAbsent(inscriptionId, id -> {
                 UserEventProgrammingDTO dto = new UserEventProgrammingDTO();
-                dto.setInscriptionId(inscriptionId); // Ya es String
+                dto.setInscriptionId(inscriptionId);
                 dto.setInscriptionStatus((String) result[1]);
                 dto.setStudentName((String) result[2]);
-                dto.setTotal((String) result[3]); // Ya es String
-                dto.setCreatedAt((String) result[4]); // Ya es String
+                dto.setTotal((String) result[3]);
+                dto.setCreatedAt((String) result[4]);
                 dto.setItems(new ArrayList<>());
                 return dto;
             });
 
             UserEventProgrammingDTO.EventItem eventItem = new UserEventProgrammingDTO.EventItem();
-            eventItem.setEventId((String) result[5]); // Ya es String
+            eventItem.setEventId((String) result[5]);
             eventItem.setEventName((String) result[6]);
-            eventItem.setEventDescription((String) result[7]);
-            eventItem.setScheduleStart((String) result[8]);
-            eventItem.setScheduleEnd((String) result[9]);
-            eventItem.setEventStartDate((String) result[10]);
-            eventItem.setEventEndDate((String) result[11]);
+            eventItem.setEventDescription((String) result[7]); // `event_description` está en el índice 7
+
+            try {
+                // Usa los índices correctos para `start_hour` y `end_hour`
+                eventItem.setScheduleStart(LocalTime.parse((String) result[9]).format(timeFormatter)); // `start_hour` en índice 9
+                eventItem.setScheduleEnd(LocalTime.parse((String) result[10]).format(timeFormatter));   // `end_hour` en índice 10
+                eventItem.setEventStartDate(LocalDate.parse((String) result[11]).format(dateFormatter)); // `event_start_date` en índice 11
+                eventItem.setEventEndDate(LocalDate.parse((String) result[12]).format(dateFormatter));   // `event_end_date` en índice 12
+            } catch (DateTimeParseException e) {
+                System.err.println("Error parsing date or time: " + e.getMessage() + ", value: " + result[8]);
+                throw e;
+            }
 
             inscriptionsMap.get(inscriptionId).getItems().add(eventItem);
         }
+
 
         return new ArrayList<>(inscriptionsMap.values());
     }
