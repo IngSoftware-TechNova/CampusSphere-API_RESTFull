@@ -11,4 +11,5 @@ public interface StudentEventInterestService {
     List<StudentEventInterestDTO> findByStudentId();
     List<StudentEventInterestDTO> findByEventId(Integer eventId);
     void deleteByEventId(Integer eventId);
+    boolean isEventFavorite(Integer eventId);
 }
