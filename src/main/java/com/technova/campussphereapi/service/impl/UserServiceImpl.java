@@ -82,6 +82,7 @@ public class UserServiceImpl implements UserService {
             user.getStudent().setLastName(userProfileDTO.getLastName());
             user.getStudent().setCareer(userProfileDTO.getCareer());
             user.getStudent().setUpdatedAt(LocalDateTime.now());
+            user.setProfilePicPath(userProfileDTO.getProfilePicPath());
         }
 
         User updatedUser = userRepository.save(user);
@@ -128,6 +129,7 @@ public class UserServiceImpl implements UserService {
             student.setCreatedAt(LocalDateTime.now());
             student.setUser(user);
             user.setStudent(student);
+            user.setProfilePicPath(registrationDTO.getProfilePicPath());
         }
 
         User savedUser = userRepository.save(user);

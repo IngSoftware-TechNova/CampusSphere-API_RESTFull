@@ -37,4 +37,15 @@ public class MediaController {
                 .header(HttpHeaders.CONTENT_TYPE, contentType)
                 .body(resource);
     }
+
+    @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
+    @DeleteMapping("/{filename}")
+    public ResponseEntity<?> deleteFile(@PathVariable String filename) {
+        try {
+            storageService.delete(filename);
+            return ResponseEntity.ok().body("Archivo eliminado exitosamente.");
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(500).body("Error al eliminar el archivo: " + e.getMessage());
+        }
+    }
 }

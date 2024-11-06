@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class UserRegistrationDTO {
 
-    private String imagePath;
+    private String profilePicPath;
 
     @NotBlank(message = "El nombre es obligatorio")
     private String firstName;
