@@ -20,7 +20,6 @@ public class MediaController {
 
     private final StorageService storageService;
 
-    @PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
     @PostMapping("/upload")
     public UploadMediaDTO upload(@RequestParam("file") MultipartFile multipartFile) {
         String path = storageService.store(multipartFile);
