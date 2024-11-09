@@ -7,3 +7,15 @@ COPY ${JAR_FILE} campussphere-api.jar
 EXPOSE 8080
 
 ENTRYPOINT ["java", "-jar", "campussphere-api.jar"]
+
+
+
+
+
+
+
+
+
+
+
+

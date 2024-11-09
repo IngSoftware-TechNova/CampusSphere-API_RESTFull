@@ -16,6 +16,8 @@ import com.technova.campussphereapi.repository.PriceRepository;
 import com.technova.campussphereapi.repository.LocationRepository;
 import com.technova.campussphereapi.service.EventService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,6 +43,13 @@ public class EventServiceImpl implements EventService {
         return events.stream()
                 .map(eventMapper::toDetailsDTO)
                 .toList();
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public Page<EventDetailsDTO> paginate(Pageable pageable) {
+        Page<Event> events = eventRepository.findAll(pageable);
+        return events.map(eventMapper::toDetailsDTO);
     }
 
     @Transactional(readOnly = true)
