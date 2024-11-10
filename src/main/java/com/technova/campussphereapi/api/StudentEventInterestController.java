@@ -48,4 +48,11 @@ public class StudentEventInterestController {
         studentEventInterestService.deleteByEventId(eventId);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/is-favorite/{eventId}")
+    public ResponseEntity<Boolean> isFavorite(@PathVariable Integer eventId) {
+        boolean isFavorite = studentEventInterestService.isEventFavorite(eventId);
+        return ResponseEntity.ok(isFavorite);
+    }
+
 }

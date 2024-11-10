@@ -119,4 +119,20 @@ public class StudentEventInterestServiceImpl implements StudentEventInterestServ
         Integer studentId = user.getStudent().getId();
         studentEventInterestRepository.deleteByStudentIdAndEventId(studentId, eventId);
     }
+
+    @Transactional(readOnly = true)
+    @Override
+    public boolean isEventFavorite(Integer eventId) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication == null || authentication.getPrincipal().equals("anonymousUser")) {
+            throw new ResourceNotFoundException("Usuario no autenticado");
+        }
+
+        User user = userRepository.findByEmail(authentication.getName())
+                .orElseThrow(() -> new ResourceNotFoundException("Usuario no encontrado"));
+
+        Integer studentId = user.getStudent().getId();
+
+        return studentEventInterestRepository.existsByStudentIdAndEventId(studentId, eventId);
+    }
 }
