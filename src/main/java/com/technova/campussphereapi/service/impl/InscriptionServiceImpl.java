@@ -99,9 +99,8 @@ public class InscriptionServiceImpl implements InscriptionService {
         return inscriptionMapper.toInscriptionDTO(savedInscription);
     }
 
-    /*
-    @Transactional(readOnly = true)
     @Override
+    @Transactional(readOnly = true)
     public List<InscriptionReportDTO> getInscriptionEventReportDate() {
         List<Object[]> results = inscriptionRepository.getInscriptionEventReportDate();
 
@@ -113,8 +112,6 @@ public class InscriptionServiceImpl implements InscriptionService {
                 )
         ).collect(Collectors.toList());
     }
-
-     */
 
     @Transactional(readOnly = true)
     @Override
