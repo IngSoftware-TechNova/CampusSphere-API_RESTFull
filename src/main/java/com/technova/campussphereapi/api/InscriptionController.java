@@ -29,19 +29,11 @@ public class InscriptionController {
         return new ResponseEntity<>(newInscription, HttpStatus.CREATED);
     }
 
-    /*
     @GetMapping("/report")
-    public ResponseEntity<List<InscriptionReportDTO>> getInscriptionPerEventReport(){
-        List<InscriptionReportDTO> reports = inscriptionService.getInscriptionPerEventReport();
-        return ResponseEntity.ok(reports);
+    public ResponseEntity<List<InscriptionReportDTO>> getPurchaseReport() {
+        List<InscriptionReportDTO> report = inscriptionService.getInscriptionEventReportDate();
+        return ResponseEntity.ok(report);
     }
-
-    @DeleteMapping("/delete/{eventId}")
-    public ResponseEntity<InscriptionDetailsDTO> delete(@PathVariable Integer eventId){
-        inscriptionService.delete(eventId);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-    }
-     */
 
     @GetMapping
     public ResponseEntity<List<InscriptionDetailsDTO>> listAllInscriptions() {
