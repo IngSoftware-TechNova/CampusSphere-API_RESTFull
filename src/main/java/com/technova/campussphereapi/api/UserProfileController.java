@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/user/profile")
 @RequiredArgsConstructor
-@PreAuthorize("hasRole('STUDENT')") // Permitir solo a Student
+@PreAuthorize("hasAnyRole('ADMIN', 'STUDENT')")
 public class UserProfileController {
 
     private final UserService userService;

@@ -63,6 +63,8 @@ public class InscriptionMapper {
     private InscriptionItemDTO toInscriptionItemDTO(InscriptionItem item) {
         InscriptionItemDTO itemDTO = modelMapper.map(item, InscriptionItemDTO.class);
         itemDTO.setNameEvent(item.getEvent().getName());
+        itemDTO.setEventId(item.getEvent().getId());
+
         return itemDTO;
     }
 }
