@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class InscriptionItemDTO {
-    private Integer id;
+    private Integer eventId;
     private Float price;
     //private Integer quantity;
     private String nameEvent;

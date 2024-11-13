@@ -19,6 +19,7 @@ public class EventDetailsDTO {
     private String categoryName;
     private String locationName;
     private String cityName;
+    private String countryName;
     private Float PriceValue;
 }
 
