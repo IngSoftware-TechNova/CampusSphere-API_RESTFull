@@ -1,7 +1,9 @@
 package com.technova.campussphereapi.api;
 
+import com.technova.campussphereapi.dto.AdminEventSalesReportDTO;
 import com.technova.campussphereapi.dto.EventCreateUpdateDTO;
 import com.technova.campussphereapi.dto.EventDetailsDTO;
+import com.technova.campussphereapi.dto.InscriptionReportDTO;
 import com.technova.campussphereapi.model.entity.Event;
 import com.technova.campussphereapi.service.EventService;
 import jakarta.validation.Valid;
@@ -68,6 +70,13 @@ public class EventController {
     public ResponseEntity<Event> delete(@PathVariable("id") Integer id){
         eventService.delete(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/sales-report")
+    public ResponseEntity<List<AdminEventSalesReportDTO>> getAdminEventSalesReport() {
+        List<AdminEventSalesReportDTO> report = eventService.getAdminEventSalesReport();
+        return ResponseEntity.ok(report);
     }
 
 }

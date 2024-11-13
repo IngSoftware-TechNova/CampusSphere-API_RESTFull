@@ -1,8 +1,6 @@
 package com.technova.campussphereapi.service.impl;
 
-import com.technova.campussphereapi.dto.EventCreateUpdateDTO;
-import com.technova.campussphereapi.dto.EventDetailsDTO;
-import com.technova.campussphereapi.dto.FilteredEventsDTO;
+import com.technova.campussphereapi.dto.*;
 import com.technova.campussphereapi.exception.BadRequestException;
 import com.technova.campussphereapi.exception.ResourceNotFoundException;
 import com.technova.campussphereapi.mapper.EventMapper;
@@ -25,6 +23,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -161,6 +160,20 @@ public class EventServiceImpl implements EventService {
                 .stream()
                 .map(eventMapper::toDetailsDTO)
                 .toList();
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<AdminEventSalesReportDTO> getAdminEventSalesReport() {
+        List<Object[]> results = eventRepository.getAdminEventSalesReport();
+
+        // Mapea cada Object[] a un PurchaseReportDTO
+        return results.stream().map(result ->
+                new AdminEventSalesReportDTO(
+                        (String) result[0],
+                        ((Integer) result[1]).intValue()
+                )
+        ).collect(Collectors.toList());
     }
 
 }

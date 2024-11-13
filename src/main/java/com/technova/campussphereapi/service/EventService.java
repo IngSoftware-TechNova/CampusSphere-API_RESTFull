@@ -1,9 +1,6 @@
 package com.technova.campussphereapi.service;
 
-import com.technova.campussphereapi.dto.CategoryDTO;
-import com.technova.campussphereapi.dto.EventCreateUpdateDTO;
-import com.technova.campussphereapi.dto.EventDetailsDTO;
-import com.technova.campussphereapi.dto.FilteredEventsDTO;
+import com.technova.campussphereapi.dto.*;
 import com.technova.campussphereapi.model.entity.Event;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -22,5 +19,6 @@ public interface EventService {
     void delete(Integer id);
 
     List<EventDetailsDTO> findTop8EventsByCreatedAt();
+    List<AdminEventSalesReportDTO> getAdminEventSalesReport();
 }
 
