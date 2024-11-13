@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class InscriptionReportDTO {
 
-    private String nameEvent;
+    //private String nameEvent;
     private Integer quantity;
     private String consultDate;
 

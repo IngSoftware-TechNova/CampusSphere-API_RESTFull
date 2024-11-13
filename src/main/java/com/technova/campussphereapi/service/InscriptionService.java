@@ -15,5 +15,5 @@ public interface InscriptionService {
     InscriptionDetailsDTO confirmInscription(Integer inscriptionId);
     InscriptionDetailsDTO getInscriptionById(Integer id);
 
-    //List<InscriptionReportDTO> getInscriptionEventReportDate();
+    List<InscriptionReportDTO> getInscriptionEventReportDate();
 }
